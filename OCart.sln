@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCart", "OCart\OCart.csproj", "{FD14E8F4-FDD7-4AD6-88BE-A9526657D3FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD14E8F4-FDD7-4AD6-88BE-A9526657D3FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD14E8F4-FDD7-4AD6-88BE-A9526657D3FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD14E8F4-FDD7-4AD6-88BE-A9526657D3FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD14E8F4-FDD7-4AD6-88BE-A9526657D3FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C2549811-410A-4C90-8111-0C72EC5CF5DE}
+	EndGlobalSection
+EndGlobal
