@@ -17,12 +17,14 @@ namespace OCart.Data
 
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Post> Posts { get; set; }
+		public DbSet<Commission> Commissions { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
 
 			builder.Entity<Post>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }
