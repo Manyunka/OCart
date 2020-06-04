@@ -18,6 +18,7 @@ namespace OCart.Data
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Post> Posts { get; set; }
 		public DbSet<Commission> Commissions { get; set; }
+		public DbSet<Auction> Auctions { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -25,6 +26,16 @@ namespace OCart.Data
 
 			builder.Entity<Post>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+
+			builder.Entity<Commission>()
+				.Property(p => p.Price)
+				.HasColumnType("decimal(18,4)");
+			builder.Entity<Auction>()
+				.Property(p => p.InitialBet)
+				.HasColumnType("decimal(18,4)");
+			builder.Entity<Auction>()
+				.Property(p => p.FinishedBet)
+				.HasColumnType("decimal(18,4)");
 		}
 	}
 }
