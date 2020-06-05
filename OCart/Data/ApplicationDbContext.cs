@@ -23,6 +23,8 @@ namespace OCart.Data
 		public DbSet<Message> Messages { get; set; }
 		public DbSet<MessageFile> MessageFiles { get; set; }
 
+		public DbSet<ArtistСomment> ArtistСomments { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -31,10 +33,16 @@ namespace OCart.Data
 			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Auction>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Dialog>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<ArtistСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
-				.WithMany().
-				HasForeignKey(x => x.UserId)
+				.WithMany()
+				.HasForeignKey(x => x.UserId)
+				.IsRequired();
+
+			builder.Entity<ArtistСomment>().HasOne(x => x.Artist)
+				.WithMany()
+				.HasForeignKey(x => x.ArtistId)
 				.IsRequired();
 
 			builder.Entity<Commission>()
