@@ -12,7 +12,6 @@ namespace OCart.Data
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
 		{
-			Database.EnsureCreated();
 		}
 
 		public DbSet<Category> Categories { get; set; }
@@ -22,6 +21,7 @@ namespace OCart.Data
 
 		public DbSet<Dialog> Dialogs { get; set; }
 		public DbSet<Message> Messages { get; set; }
+		public DbSet<MessageFile> MessageFiles { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{

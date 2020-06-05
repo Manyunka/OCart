@@ -6,16 +6,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class Message
+    public class MessageFile
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public Guid DialogId { get; set; }
-        public Dialog Dialog { get; set; }
+
+        public Guid MessageId { get; set; }
+        public Message Message { get; set; }
 
         public DateTime Created { get; set; }
         [Required]
-        public String Text { get; set; }
-
-        public ICollection<MessageFile> MessageFiles { get; set; }
+        public String Name { get; set; }
+        [Required]
+        public String Path { get; set; }
     }
 }
