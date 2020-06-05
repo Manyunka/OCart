@@ -212,7 +212,7 @@
         .container-bottom .content .btn {
             float: right;
             border-radius: 3.5rem;
-            background: black;
+            background: #ff008e;
             color: #ffffff;
             display: inline-block;
             padding: 1rem 3.5rem;
@@ -220,9 +220,13 @@
             margin-top: 5.4rem;
         }
 
+
+
     .container-bottom .content img {
          margin-top:-450px;
          margin-right:450px;
     }
+
+
 
 /*# sourceMappingURL=mainPage.css.map */
