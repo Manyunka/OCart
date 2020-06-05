@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200603203621_AddUsers.cs" />
     <Compile Remove="Data\Migrations\20200603203621_AddUsers.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200605123730_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200605123730_AddDialogs.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

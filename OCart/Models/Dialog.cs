@@ -11,7 +11,13 @@ namespace OCart.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
+        public String UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
+        [Required]
         public String CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
+
+        public ICollection<Message> Messages { get; set; }
     }
 }

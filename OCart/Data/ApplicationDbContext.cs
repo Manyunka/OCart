@@ -21,6 +21,7 @@ namespace OCart.Data
 		public DbSet<Auction> Auctions { get; set; }
 
 		public DbSet<Dialog> Dialogs { get; set; }
+		public DbSet<Message> Messages { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -30,6 +31,11 @@ namespace OCart.Data
 			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Auction>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Dialog>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+
+			builder.Entity<Dialog>().HasOne(x => x.User)
+				.WithMany().
+				HasForeignKey(x => x.UserId)
+				.IsRequired();
 
 			builder.Entity<Commission>()
 				.Property(p => p.Price)
