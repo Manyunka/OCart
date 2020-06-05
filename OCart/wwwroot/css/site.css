@@ -185,16 +185,40 @@
         font-weight: bolder;
     }
 
-    .container-bottom .content .btn {
-        float: right;
-        border-radius: 3.5rem;
-        background: black;
-        color: #ffffff;
-        display: inline-block;
-        padding: 1rem 3.5rem;
-        font-size: 1.5rem;
-        margin-top: 5.4rem;
+
+    .container-bottom .content .container{
+        position:absolute;
+        text-align: left;
+        
+        margin-top: -250px;
+        margin-left: 870px;
     }
+
+    a {
+        display: inline-block;
+        height: 80px;
+        width:80px;
+        background:#b200ff;
+        margin: 10px;
+        border-radius:30%;
+        text-align:center;
+    }
+
+        a i{
+            color:beige;
+            font-size:50px;
+            margin-top:17px;
+        }
+        .container-bottom .content .btn {
+            float: right;
+            border-radius: 3.5rem;
+            background: black;
+            color: #ffffff;
+            display: inline-block;
+            padding: 1rem 3.5rem;
+            font-size: 1.5rem;
+            margin-top: 5.4rem;
+        }
 
     .container-bottom .content img {
          margin-top:-450px;
