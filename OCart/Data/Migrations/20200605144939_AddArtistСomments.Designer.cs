@@ -10,7 +10,7 @@ using OCart.Data;
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200605143015_AddArtistСomments")]
+    [Migration("20200605144939_AddArtistСomments")]
     partial class AddArtistСomments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,6 +226,9 @@ namespace OCart.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ArtistId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -245,6 +248,8 @@ namespace OCart.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("ArtistId");
 
@@ -521,6 +526,10 @@ namespace OCart.Data.Migrations
 
             modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
                 {
+                    b.HasOne("OCart.Models.ApplicationUser", null)
+                        .WithMany("ArtistСomments")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("OCart.Models.ApplicationUser", "Artist")
                         .WithMany()
                         .HasForeignKey("ArtistId")

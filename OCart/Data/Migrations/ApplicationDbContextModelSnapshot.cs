@@ -224,6 +224,9 @@ namespace OCart.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("ArtistId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -243,6 +246,8 @@ namespace OCart.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("ArtistId");
 
@@ -519,6 +524,10 @@ namespace OCart.Data.Migrations
 
             modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
                 {
+                    b.HasOne("OCart.Models.ApplicationUser", null)
+                        .WithMany("ArtistСomments")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("OCart.Models.ApplicationUser", "Artist")
                         .WithMany()
                         .HasForeignKey("ArtistId")

@@ -16,11 +16,18 @@ namespace OCart.Data.Migrations
                     CreatorId = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Modified = table.Column<DateTime>(nullable: false),
-                    Text = table.Column<string>(nullable: false)
+                    Text = table.Column<string>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ArtistСomments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArtistСomments_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ArtistСomments_AspNetUsers_ArtistId",
                         column: x => x.ArtistId,
@@ -34,6 +41,11 @@ namespace OCart.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArtistСomments_ApplicationUserId",
+                table: "ArtistСomments",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ArtistСomments_ArtistId",
