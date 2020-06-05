@@ -13,6 +13,8 @@ namespace OCart.Models
         public Dialog Dialog { get; set; }
 
         public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
+
         [Required]
         public String Text { get; set; }
 

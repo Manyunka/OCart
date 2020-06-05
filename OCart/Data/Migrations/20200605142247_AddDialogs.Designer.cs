@@ -10,8 +10,8 @@ using OCart.Data;
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200605133246_AddMessageFiles")]
-    partial class AddMessageFiles
+    [Migration("20200605142247_AddDialogs")]
+    partial class AddDialogs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -361,6 +361,9 @@ namespace OCart.Data.Migrations
 
                     b.Property<Guid>("DialogId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
                         .IsRequired()

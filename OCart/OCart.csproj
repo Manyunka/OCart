@@ -10,6 +10,10 @@
     <Compile Remove="Data\Migrations\20200603203621_AddUsers.Designer.cs" />
     <Compile Remove="Data\Migrations\20200605123730_AddDialogs.cs" />
     <Compile Remove="Data\Migrations\20200605123730_AddDialogs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200605130713_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200605130713_AddDialogs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200605133246_AddMessageFiles.cs" />
+    <Compile Remove="Data\Migrations\20200605133246_AddMessageFiles.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

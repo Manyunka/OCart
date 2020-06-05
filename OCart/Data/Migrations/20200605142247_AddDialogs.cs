@@ -50,6 +50,7 @@ namespace OCart.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     DialogId = table.Column<Guid>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
+                    Modified = table.Column<DateTime>(nullable: false),
                     Text = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -59,6 +60,27 @@ namespace OCart.Data.Migrations
                         name: "FK_Messages_Dialogs_DialogId",
                         column: x => x.DialogId,
                         principalTable: "Dialogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MessageFiles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    MessageId = table.Column<Guid>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Path = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MessageFiles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MessageFiles_Messages_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Messages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -79,6 +101,11 @@ namespace OCart.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MessageFiles_MessageId",
+                table: "MessageFiles",
+                column: "MessageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Messages_DialogId",
                 table: "Messages",
                 column: "DialogId");
@@ -97,6 +124,9 @@ namespace OCart.Data.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Auctions_AspNetUsers_CreatorId",
                 table: "Auctions");
+
+            migrationBuilder.DropTable(
+                name: "MessageFiles");
 
             migrationBuilder.DropTable(
                 name: "Messages");

@@ -360,6 +360,9 @@ namespace OCart.Data.Migrations
                     b.Property<Guid>("DialogId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
