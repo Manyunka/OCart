@@ -2,14 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OCart</title>
+
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+</head>
+
 <body>
+    <img src="~/img/Лого.png" alt="logo" class="logo" />
+
     <div class="container-top">
+        <header>
+            <ul>
+                <li class="active">Главная</li>
+                <li>О нас</li>
+                <li>Контакты</li>
+                <li>Галерея</li>
+                <li>Заказы</li>
+                <li>Аукционы</li>
+                <span class="ellipse"></span>
+            </ul>
+        </header>
+
         <div class="content">
             <div>
                 <div class="text">OCart Digital art Score</div>
-                <div class="btn">Присоедениться</div>
+                <button class="btn">Присоедениться</button>
             </div>
             <img src="~/img/Картинка1.png" alt="картинка 1">
+        </div>
+
+        <div class="markers">
+            <span class="item active"></span>
+            <span class="item"></span>
+            <span class="item"></span>
         </div>
     </div>
 
@@ -42,6 +70,26 @@
 
     <div class="container-bottom">
 
+        <div class="content">
+            <img src="~/img/Картинка2.png" alt="картинка 1">
+            <div>
+                <div class="text">
+                    <h1>Kонтакты</h1>
+                </div>
+                <div class="email">
+                    magic.tomsk.vka@gmail.com
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="markers">
+            <span class="item"></span>
+            <span class="item "></span>
+            <span class="item active"></span>
+        </div>
     </div>
 
 </body>
+</html>
