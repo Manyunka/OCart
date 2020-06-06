@@ -25,6 +25,7 @@ namespace OCart.Data
 
 		public DbSet<ArtistComment> ArtistComments { get; set; }
 		public DbSet<PostComment> PostComments { get; set; }
+		public DbSet<AuctionComment> AuctionComments { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -36,6 +37,7 @@ namespace OCart.Data
 			builder.Entity<Dialog>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<ArtistComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<PostComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<AuctionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
 				.WithMany(x => x.Dialogs)
