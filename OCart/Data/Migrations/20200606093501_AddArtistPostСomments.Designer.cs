@@ -10,8 +10,8 @@ using OCart.Data;
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200606085136_AddArtistСomments")]
-    partial class AddArtistСomments
+    [Migration("20200606093501_AddArtistPostСomments")]
+    partial class AddArtistPostСomments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,7 +220,7 @@ namespace OCart.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
+            modelBuilder.Entity("OCart.Models.ArtistComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -250,7 +250,7 @@ namespace OCart.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("ArtistСomments");
+                    b.ToTable("ArtistComments");
                 });
 
             modelBuilder.Entity("OCart.Models.Auction", b =>
@@ -463,6 +463,38 @@ namespace OCart.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("OCart.Models.PostComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostComments");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -514,10 +546,10 @@ namespace OCart.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
+            modelBuilder.Entity("OCart.Models.ArtistComment", b =>
                 {
                     b.HasOne("OCart.Models.ApplicationUser", "Artist")
-                        .WithMany("ArtistСomments")
+                        .WithMany("ArtistComments")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -604,6 +636,21 @@ namespace OCart.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OCart.Models.PostComment", b =>
+                {
+                    b.HasOne("OCart.Models.ApplicationUser", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("OCart.Models.Post", "Post")
+                        .WithMany("PostComments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

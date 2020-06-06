@@ -218,7 +218,7 @@ namespace OCart.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
+            modelBuilder.Entity("OCart.Models.ArtistComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -248,7 +248,7 @@ namespace OCart.Data.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("ArtistСomments");
+                    b.ToTable("ArtistComments");
                 });
 
             modelBuilder.Entity("OCart.Models.Auction", b =>
@@ -461,7 +461,7 @@ namespace OCart.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("OCart.Models.PostСomment", b =>
+            modelBuilder.Entity("OCart.Models.PostComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -490,7 +490,7 @@ namespace OCart.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostСomments");
+                    b.ToTable("PostComments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -544,10 +544,10 @@ namespace OCart.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
+            modelBuilder.Entity("OCart.Models.ArtistComment", b =>
                 {
                     b.HasOne("OCart.Models.ApplicationUser", "Artist")
-                        .WithMany("ArtistСomments")
+                        .WithMany("ArtistComments")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -637,7 +637,7 @@ namespace OCart.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OCart.Models.PostСomment", b =>
+            modelBuilder.Entity("OCart.Models.PostComment", b =>
                 {
                     b.HasOne("OCart.Models.ApplicationUser", "Creator")
                         .WithMany()
@@ -646,7 +646,7 @@ namespace OCart.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("OCart.Models.Post", "Post")
-                        .WithMany("PostСomments")
+                        .WithMany("PostComments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

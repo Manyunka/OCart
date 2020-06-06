@@ -6,12 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class PostСomment
+    public class ArtistComment
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid PostId { get; set; }
-        public Post Post { get; set; }
+        [Required]
+        public String ArtistId { get; set; }
+        public ApplicationUser Artist { get; set; }
 
         [Required]
         public String CreatorId { get; set; }

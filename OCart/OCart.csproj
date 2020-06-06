@@ -28,6 +28,10 @@
     <Compile Remove="Data\Migrations\20200606081550_AddDialogs.Designer.cs" />
     <Compile Remove="Data\Migrations\20200606081812_AddDialogs.cs" />
     <Compile Remove="Data\Migrations\20200606081812_AddDialogs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606085136_AddArtistСomments.cs" />
+    <Compile Remove="Data\Migrations\20200606085136_AddArtistСomments.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606090135_AddPostСomments.cs" />
+    <Compile Remove="Data\Migrations\20200606090135_AddPostСomments.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
