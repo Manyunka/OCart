@@ -6,28 +6,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class Commission
+    public class CommissionComment
     {
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        public Guid CommissionId { get; set; }
+        public Commission Commission { get; set; }
 
         [Required]
         public String CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
-        public Guid CategoryId { get; set; }
-        public Category Category { get; set; }
-
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
 
         [Required]
-        [MaxLength(200)]
-        public String Title { get; set; }
-        [Required]
-        public String Description { get; set; }
-
-        public Decimal Price { get; set; }
-
-        public ICollection<CommissionComment> CommissionComments { get; set; }
+        public String Text { get; set; }
     }
 }
