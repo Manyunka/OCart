@@ -29,5 +29,6 @@ namespace OCart.Models
         public Decimal Price { get; set; }
 
         public ICollection<CommissionComment> CommissionComments { get; set; }
+        public ICollection<CommissionPicture> CommissionPictures { get; set; }
     }
 }
