@@ -20,5 +20,7 @@ namespace OCart.Models
         public DateTime Created { get; set; }
 
         public StatusType Status { get; set; }
+
+        public ICollection<AuctionOrderMessage> OrderMessages { get; set; }
     }
 }
