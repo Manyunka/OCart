@@ -23,6 +23,6 @@ namespace OCart.Models
         [Required]
         public String Text { get; set; }
 
-        public ICollection<PostСomment> PostСomments { get; set; }
+        //public ICollection<PostСomment> PostСomments { get; set; }
     }
 }

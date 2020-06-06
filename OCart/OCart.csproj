@@ -14,8 +14,20 @@
     <Compile Remove="Data\Migrations\20200605130713_AddDialogs.Designer.cs" />
     <Compile Remove="Data\Migrations\20200605133246_AddMessageFiles.cs" />
     <Compile Remove="Data\Migrations\20200605133246_AddMessageFiles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200605142247_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200605142247_AddDialogs.Designer.cs" />
     <Compile Remove="Data\Migrations\20200605143015_AddArtistСomments.cs" />
     <Compile Remove="Data\Migrations\20200605143015_AddArtistСomments.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200605144939_AddArtistСomments.cs" />
+    <Compile Remove="Data\Migrations\20200605144939_AddArtistСomments.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606074431_AddPostСomments.cs" />
+    <Compile Remove="Data\Migrations\20200606074431_AddPostСomments.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606080915_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200606080915_AddDialogs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606081550_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200606081550_AddDialogs.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606081812_AddDialogs.cs" />
+    <Compile Remove="Data\Migrations\20200606081812_AddDialogs.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

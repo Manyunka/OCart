@@ -218,44 +218,6 @@ namespace OCart.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ArtistId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ArtistId");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("ArtistСomments");
-                });
-
             modelBuilder.Entity("OCart.Models.Auction", b =>
                 {
                     b.Property<Guid>("Id")
@@ -364,9 +326,6 @@ namespace OCart.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("CreatorId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -376,8 +335,6 @@ namespace OCart.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CreatorId");
 
@@ -471,38 +428,6 @@ namespace OCart.Data.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("OCart.Models.PostСomment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatorId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostСomments");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -554,25 +479,6 @@ namespace OCart.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OCart.Models.ArtistСomment", b =>
-                {
-                    b.HasOne("OCart.Models.ApplicationUser", null)
-                        .WithMany("ArtistСomments")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("OCart.Models.ApplicationUser", "Artist")
-                        .WithMany()
-                        .HasForeignKey("ArtistId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OCart.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("OCart.Models.Auction", b =>
                 {
                     b.HasOne("OCart.Models.Category", "Category")
@@ -605,10 +511,6 @@ namespace OCart.Data.Migrations
 
             modelBuilder.Entity("OCart.Models.Dialog", b =>
                 {
-                    b.HasOne("OCart.Models.ApplicationUser", null)
-                        .WithMany("Dialogs")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("OCart.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
@@ -616,7 +518,7 @@ namespace OCart.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("OCart.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Dialogs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -652,21 +554,6 @@ namespace OCart.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OCart.Models.PostСomment", b =>
-                {
-                    b.HasOne("OCart.Models.ApplicationUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("OCart.Models.Post", "Post")
-                        .WithMany("PostСomments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -11,6 +11,6 @@ namespace OCart.Models
         public String AvatarPath { get; set; }
 
         public ICollection<Dialog> Dialogs { get; set; }
-        public ICollection<ArtistСomment> ArtistСomments { get; set; }
+        //public ICollection<ArtistСomment> ArtistСomments { get; set; }
     }
 }

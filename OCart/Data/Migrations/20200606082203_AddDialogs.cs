@@ -17,18 +17,11 @@ namespace OCart.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    CreatorId = table.Column<string>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
+                    CreatorId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Dialogs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dialogs_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Dialogs_AspNetUsers_CreatorId",
                         column: x => x.CreatorId,
@@ -84,11 +77,6 @@ namespace OCart.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dialogs_ApplicationUserId",
-                table: "Dialogs",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dialogs_CreatorId",
