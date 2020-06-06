@@ -15,8 +15,8 @@ namespace OCart.Models
         public ApplicationUser User { get; set; }
 
         [Required]
-        public String CreatorId { get; set; }
-        public ApplicationUser Creator { get; set; }
+        public String InterlocutorId { get; set; }
+        public ApplicationUser Interlocutor { get; set; }
 
         public ICollection<Message> Messages { get; set; }
     }

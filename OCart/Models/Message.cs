@@ -12,6 +12,10 @@ namespace OCart.Models
         public Guid DialogId { get; set; }
         public Dialog Dialog { get; set; }
 
+        [Required]
+        public String CreatorId { get; set; }
+        public ApplicationUser Creator { get; set; }
+
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
 
