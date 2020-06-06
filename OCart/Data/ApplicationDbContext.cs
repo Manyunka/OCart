@@ -32,6 +32,8 @@ namespace OCart.Data
 		public DbSet<AuctionPicture> AuctionPictures { get; set; }
 		public DbSet<CommissionPicture> CommissionPictures { get; set; }
 
+		public DbSet<AuctionOrder> AuctionOrders { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -44,6 +46,8 @@ namespace OCart.Data
 			builder.Entity<PostComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<AuctionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+
+			builder.Entity<AuctionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
 				.WithMany(x => x.Dialogs)
