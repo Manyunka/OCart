@@ -30,5 +30,6 @@ namespace OCart.Models
 
         public ICollection<CommissionComment> CommissionComments { get; set; }
         public ICollection<CommissionPicture> CommissionPictures { get; set; }
+        public ICollection<CommissionOrder> CommissionOrders { get; set; }
     }
 }

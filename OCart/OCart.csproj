@@ -32,6 +32,12 @@
     <Compile Remove="Data\Migrations\20200606085136_AddArtistСomments.Designer.cs" />
     <Compile Remove="Data\Migrations\20200606090135_AddPostСomments.cs" />
     <Compile Remove="Data\Migrations\20200606090135_AddPostСomments.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606123835_AddAuctionOrders.cs" />
+    <Compile Remove="Data\Migrations\20200606123835_AddAuctionOrders.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606130829_AddAuctionOrders.cs" />
+    <Compile Remove="Data\Migrations\20200606130829_AddAuctionOrders.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200606131255_AddCommissionOrders.cs" />
+    <Compile Remove="Data\Migrations\20200606131255_AddCommissionOrders.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

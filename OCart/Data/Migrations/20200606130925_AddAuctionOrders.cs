@@ -12,7 +12,7 @@ namespace OCart.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    AuctionId = table.Column<Guid>(nullable: false),
+                    AuctionId = table.Column<Guid>(nullable: true),
                     CustomerId = table.Column<string>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false)
@@ -25,7 +25,7 @@ namespace OCart.Data.Migrations
                         column: x => x.AuctionId,
                         principalTable: "Auctions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_AuctionOrders_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,

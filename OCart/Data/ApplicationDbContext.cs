@@ -33,6 +33,7 @@ namespace OCart.Data
 		public DbSet<CommissionPicture> CommissionPictures { get; set; }
 
 		public DbSet<AuctionOrder> AuctionOrders { get; set; }
+		public DbSet<CommissionOrder> CommissionOrders { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -48,6 +49,7 @@ namespace OCart.Data
 			builder.Entity<CommissionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<AuctionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<CommissionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
 				.WithMany(x => x.Dialogs)
@@ -68,6 +70,14 @@ namespace OCart.Data
 			builder.Entity<Auction>()
 				.Property(p => p.FinishedBet)
 				.HasColumnType("decimal(18,4)");
+
+
+			builder.Entity<AuctionOrder>().HasOne(x => x.Auction).WithMany().OnDelete(DeleteBehavior.SetNull);
+			builder.Entity<Commission>()
+				.HasMany(x => x.CommissionOrders)
+				.WithOne(x => x.Commission)
+				.OnDelete(DeleteBehavior.SetNull);
+
 		}
 	}
 }

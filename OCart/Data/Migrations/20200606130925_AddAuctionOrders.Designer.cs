@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OCart.Data;
 
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200606130925_AddAuctionOrders")]
+    partial class AddAuctionOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -472,34 +474,6 @@ namespace OCart.Data.Migrations
                     b.ToTable("CommissionComments");
                 });
 
-            modelBuilder.Entity("OCart.Models.CommissionOrder", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CommissionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CustomerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CommissionId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CommissionOrders");
-                });
-
             modelBuilder.Entity("OCart.Models.CommissionPicture", b =>
                 {
                     b.Property<Guid>("Id")
@@ -839,20 +813,6 @@ namespace OCart.Data.Migrations
                     b.HasOne("OCart.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("OCart.Models.CommissionOrder", b =>
-                {
-                    b.HasOne("OCart.Models.Commission", "Commission")
-                        .WithMany("CommissionOrders")
-                        .HasForeignKey("CommissionId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("OCart.Models.ApplicationUser", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

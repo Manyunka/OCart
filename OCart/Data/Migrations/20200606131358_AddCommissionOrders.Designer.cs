@@ -10,8 +10,8 @@ using OCart.Data;
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200606123835_AddAuctionOrders")]
-    partial class AddAuctionOrders
+    [Migration("20200606131358_AddCommissionOrders")]
+    partial class AddCommissionOrders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -337,7 +337,7 @@ namespace OCart.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuctionId")
+                    b.Property<Guid?>("AuctionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -472,6 +472,34 @@ namespace OCart.Data.Migrations
                     b.HasIndex("CreatorId");
 
                     b.ToTable("CommissionComments");
+                });
+
+            modelBuilder.Entity("OCart.Models.CommissionOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommissionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommissionId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CommissionOrders");
                 });
 
             modelBuilder.Entity("OCart.Models.CommissionPicture", b =>
@@ -769,8 +797,7 @@ namespace OCart.Data.Migrations
                     b.HasOne("OCart.Models.Auction", "Auction")
                         .WithMany()
                         .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("OCart.Models.ApplicationUser", "Customer")
                         .WithMany()
@@ -814,6 +841,20 @@ namespace OCart.Data.Migrations
                     b.HasOne("OCart.Models.ApplicationUser", "Creator")
                         .WithMany()
                         .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OCart.Models.CommissionOrder", b =>
+                {
+                    b.HasOne("OCart.Models.Commission", "Commission")
+                        .WithMany("CommissionOrders")
+                        .HasForeignKey("CommissionId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("OCart.Models.ApplicationUser", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
