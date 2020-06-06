@@ -31,5 +31,6 @@ namespace OCart.Models
         public String Story { get; set; }
 
         public ICollection<AuctionComment> AuctionComments { get; set; }
+        public ICollection<AuctionPicture> AuctionPictures { get; set; }
     }
 }
