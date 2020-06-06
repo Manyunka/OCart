@@ -21,5 +21,7 @@ namespace OCart.Models
 
         [Required]
         public String Text { get; set; }
+
+        public ICollection<AuctionOrderFile> OrderFiles { get; set; }
     }
 }

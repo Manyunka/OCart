@@ -38,6 +38,9 @@ namespace OCart.Data
 		public DbSet<AuctionOrderMessage> AuctionOrdersMessages { get; set; }
 		public DbSet<CommissionOrderMessage> CommissionOrdersMessages { get; set; }
 
+		public DbSet<AuctionOrderFile> AuctionOrderFiles { get; set; }
+		public DbSet<CommissionOrderFile> CommissionOrderFiles { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
