@@ -23,7 +23,7 @@ namespace OCart.Data
 		public DbSet<Message> Messages { get; set; }
 		public DbSet<MessageFile> MessageFiles { get; set; }
 
-		//public DbSet<ArtistСomment> ArtistСomments { get; set; }
+		public DbSet<ArtistСomment> ArtistСomments { get; set; }
 		//public DbSet<PostСomment> PostСomments { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -34,7 +34,7 @@ namespace OCart.Data
 			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Auction>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Dialog>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			//builder.Entity<ArtistСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<ArtistСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			//builder.Entity<PostСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
@@ -42,10 +42,10 @@ namespace OCart.Data
 				.HasForeignKey(x => x.UserId)
 				.IsRequired();
 
-			/*builder.Entity<ArtistСomment>().HasOne(x => x.Artist)
-				.WithMany()
+			builder.Entity<ArtistСomment>().HasOne(x => x.Artist)
+				.WithMany(x => x.ArtistСomments)
 				.HasForeignKey(x => x.ArtistId)
-				.IsRequired();*/
+				.IsRequired();
 
 			builder.Entity<Commission>()
 				.Property(p => p.Price)
