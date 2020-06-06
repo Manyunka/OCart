@@ -28,6 +28,8 @@ namespace OCart.Data
 		public DbSet<AuctionComment> AuctionComments { get; set; }
 		public DbSet<CommissionComment> CommissionComments { get; set; }
 
+		public DbSet<PostPicture> PostPictures { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);

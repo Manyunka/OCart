@@ -24,5 +24,6 @@ namespace OCart.Models
         public String Text { get; set; }
 
         public ICollection<PostComment> PostComments { get; set; }
+        public ICollection<PostPicture> PostPictures { get; set; }
     }
 }
