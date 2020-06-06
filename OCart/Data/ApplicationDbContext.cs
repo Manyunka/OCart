@@ -24,7 +24,7 @@ namespace OCart.Data
 		public DbSet<MessageFile> MessageFiles { get; set; }
 
 		public DbSet<ArtistСomment> ArtistСomments { get; set; }
-		//public DbSet<PostСomment> PostСomments { get; set; }
+		public DbSet<PostСomment> PostСomments { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
@@ -35,7 +35,7 @@ namespace OCart.Data
 			builder.Entity<Auction>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Dialog>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<ArtistСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			//builder.Entity<PostСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<PostСomment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Dialog>().HasOne(x => x.User)
 				.WithMany(x => x.Dialogs)
