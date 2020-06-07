@@ -6,14 +6,18 @@
     box-sizing: border-box;
 }
 
-body{
-    background-image:url(../img/Register/register-background.png)
+body {
+    background-image: url(../img/Register/register-background.png);
+  
 }
 
-.modal {
-    background-image: url(../img/Register/register-background.png);
-    padding: 50px;
-    background: #ccc;
+
+.window-registr {
+    display:flex;
+     
+    width: 811px !important;
+    height: 725px !important;
+    background: url(../img/Register/ceam4ek.png) !important;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -22,3 +26,15 @@ body{
     transform: translate(-50%, -50%);
     /*  filter: blur(5px); размытие*/
 }
+
+ .left {
+    margin-top:70px;
+    text-align:right;
+    font-size: 50px;
+    color: white !important;
+    font-family:Akrobat;
+    font-weight:700;
+   
+  }
+
+ 
