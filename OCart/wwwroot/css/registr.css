@@ -27,14 +27,37 @@ body {
     /*  filter: blur(5px); размытие*/
 }
 
- .left {
-    margin-top:70px;
-    text-align:right;
+.left {
+    margin-top: 70px;
+    text-align: right;
     font-size: 50px;
     color: white !important;
-    font-family:Akrobat;
-    font-weight:700;
-   
-  }
+    font-family: Akrobat;
+    font-weight: 800;
+    padding-right: 40px !important;
+}
 
- 
+.text-right {
+    text-align: left;
+    font-family: Akrobat;
+    font-weight: 900;
+    font-size: 45px;
+    padding-right: 50px !important;
+}
+
+input {
+    border: none !important;
+    border-bottom: 1px solid pink !important;
+}
+
+#inputGroupSelect04 {
+    border: 1px solid pink !important;
+}
+
+custom-select {
+    border: none !important;
+    border-bottom: 1px solid pink !important;
+}
+option {
+    border: none !important;
+}
