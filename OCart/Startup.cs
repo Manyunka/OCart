@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OCart.Models;
+using OCart.Services;
 
 namespace OCart
 {
@@ -33,6 +34,9 @@ namespace OCart
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
+
+			services.AddScoped<IUserPermissionsService, UserPermissionsService>();
+
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 		}
