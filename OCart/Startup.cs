@@ -37,7 +37,7 @@ namespace OCart
 
 			services.AddScoped<IUserPermissionsService, UserPermissionsService>();
 
-			services.AddControllersWithViews();
+			services.AddMvc();
 			services.AddRazorPages();
 		}
 

@@ -11,6 +11,8 @@ namespace OCart.Services
         bool CanEditPost(Post post);
         bool CanEditPostComment(PostComment postComment);
 
+        bool CanEditArtistComment(ArtistComment artistComment);
+
         bool CanEditAuction(Auction auction);
         bool CanEditAuctionComment(AuctionComment auctionComment);
 

@@ -3,74 +3,158 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace OCart.Services
 {
     public class UserPermissionsService : IUserPermissionsService
     {
-        public bool CanBuy(Commission commission)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public UserPermissionsService(IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
-            throw new NotImplementedException();
+            this.userManager = userManager;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
-        public bool CanChangeAuctionOrderStatus(AuctionOrder order)
-        {
-            throw new NotImplementedException();
-        }
+        private HttpContext HttpContext => this.httpContextAccessor.HttpContext;
 
-        public bool CanChangeCommissionOrderStatus(CommissionOrder order)
-        {
-            throw new NotImplementedException();
-        }
 
-        public bool CanEditAuction(Auction auction)
+        public bool CanEditArtistComment(ArtistComment artistComment)
         {
-            throw new NotImplementedException();
-        }
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
 
-        public bool CanEditAuctionComment(AuctionComment auctionComment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEditAuctionOrderMessage(AuctionOrderMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEditCommission(Commission commission)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEditCommissionComment(CommissionComment commissionComment)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEditCommissionOrderMessage(CommissionOrderMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanEditMessage(Message message)
-        {
-            throw new NotImplementedException();
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == artistComment.CreatorId;
         }
 
         public bool CanEditPost(Post post)
         {
-            throw new NotImplementedException();
-        }
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
 
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == post.CreatorId;
+
+        }
         public bool CanEditPostComment(PostComment postComment)
         {
-            throw new NotImplementedException();
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == postComment.CreatorId;
+        }
+
+        public bool CanEditAuction(Auction auction)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == auction.CreatorId;
+        }
+        public bool CanEditAuctionComment(AuctionComment auctionComment)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == auctionComment.CreatorId;
+        }
+
+        public bool CanEditCommission(Commission commission)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == commission.CreatorId;
+        }
+        public bool CanEditCommissionComment(CommissionComment commissionComment)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == commissionComment.CreatorId;
+        }
+
+        public bool CanEditMessage(Message message)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == message.CreatorId;
+        }
+        public bool CanEditAuctionOrderMessage(AuctionOrderMessage message)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == message.CreatorId;
+        }
+        public bool CanEditCommissionOrderMessage(CommissionOrderMessage message)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == message.CreatorId;
+        }
+
+        public bool CanChangeAuctionOrderStatus(AuctionOrder order)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == order.Auction.CreatorId;
+        }
+        public bool CanChangeCommissionOrderStatus(CommissionOrder order)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == order.Commission.CreatorId;
         }
 
         public bool CanMakeBet(Auction auction)
         {
-            throw new NotImplementedException();
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
+            {
+                return false;
+            }
+
+            return true;
+        }
+        public bool CanBuy(Commission commission)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
