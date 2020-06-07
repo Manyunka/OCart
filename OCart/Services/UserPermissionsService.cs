@@ -91,6 +91,15 @@ namespace OCart.Services
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == commissionComment.CreatorId;
         }
 
+        public bool CanEditDialog(Dialog dialog)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return false;
+            }
+
+            return userManager.GetUserId(httpContextAccessor.HttpContext.User) == dialog.UserId;
+        }
         public bool CanEditMessage(Message message)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)

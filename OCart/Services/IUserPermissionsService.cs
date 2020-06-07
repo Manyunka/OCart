@@ -19,6 +19,7 @@ namespace OCart.Services
         bool CanEditCommission(Commission commission);
         bool CanEditCommissionComment(CommissionComment commissionComment);
 
+        bool CanEditDialog(Dialog dialog);
         bool CanEditMessage(Message message);
         bool CanEditAuctionOrderMessage(AuctionOrderMessage message);
         bool CanEditCommissionOrderMessage(CommissionOrderMessage message);
