@@ -17,9 +17,9 @@
     <div class="container-top">
         <header>
             <ul>
-                <li class="active">Главная</li>
-                <li>О нас</li>
-                <li>Контакты</li>
+                <li class="active"><a href="#home">Главная</a></li>
+                <li><a href="#about-us">О нас</a></li>
+                <li><a href="#contacts">Контакты</a></li>
                 <li>Галерея</li>
                 <li>Заказы</li>
                 <li>Аукционы</li>
@@ -27,10 +27,10 @@
             </ul>
         </header>
 
-        <div class="content">
+        <div class="content" id="home">
             <div>
                 <div class="text">OCart Digital art Score</div>
-                <button class="btn">Присоедениться</button>
+                <a class="btn" asp-area="" asp-controller="Account" asp-action="Register">Присоедениться</a>
             </div>
             <img src="~/img/Картинка1.png" alt="картинка 1">
         </div>
@@ -43,7 +43,7 @@
     </div>
 
 
-    <div class="container-middle">
+    <div class="container-middle" id="about-us">
         <div class="left">
             <div class="info">
                 Немного информации
@@ -59,7 +59,7 @@
             <span class="digital">
                 Исследуй digital искусство!
             </span>
-            <button class="btn">Стать частью сообщеста</button>
+            <a class="btn" asp-area="" asp-controller="Account" asp-action="Register">Стать частью сообщеста</a>
         </div>
 
         <div class="markers">
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div class="container-bottom">
+    <div class="container-bottom" id="contacts">
 
         <div class="content">
             <img src="~/img/Картинка2.png" alt="картинка 1">
@@ -93,7 +93,7 @@
                 <div class="text2">
                     ИССЛЕДУЙ DIGITAL ИСКУССТВО
                 </div>
-                <button class="btn">Стать частью сообщеста</button>
+                <a class="btn" asp-area="" asp-controller="Account" asp-action="Register">Стать частью сообщеста</a>
             </div>
 
         </div>

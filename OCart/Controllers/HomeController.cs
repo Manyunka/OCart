@@ -20,6 +20,10 @@ namespace OCart.Controllers
 
 		public IActionResult Index()
 		{
+			if (HttpContext.User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Index", "Gallery");
+			}
 			return View();
 		}
 
