@@ -30,6 +30,7 @@ namespace OCart.Models
         public Decimal FinishedBet { get; set; }
         public String Story { get; set; }
 
+        // Добавить коллекцию тегов
         public ICollection<AuctionComment> AuctionComments { get; set; }
         public ICollection<AuctionPicture> AuctionPictures { get; set; }
     }
