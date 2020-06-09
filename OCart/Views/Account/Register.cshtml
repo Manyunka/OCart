@@ -1,29 +1,47 @@
-﻿@{ ViewData["Title"] = "Register"; }
+﻿@model OCart.Models.AccountViewModels.RegisterViewModel
+@{ ViewData["Title"] = "Register"; }
 
 <h2>@ViewData["Title"].</h2>
 
-<form class="form-horizontal">
-    <h4>Create a new account.</h4>
+<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <h4>Присоединиться.</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
-        <label class="col-md-2 control-label"></label>
+        <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input class="form-control" />
-            <span class="text-danger"></span>
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label"></label>
+        <label asp-for="Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input class="form-control" />
-            <span class="text-danger"></span>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-md-2 control-label"></label>
+        <label asp-for="Password" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input class="form-control" />
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
+        <div asp-for="ConfirmPassword" class="col-md-10">
+            <input asp-for="ConfirmPassword" class="form-control" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserRole" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="UserRole">
+                <option value="Artists">Я создаю искусство</option>
+                <option value="Customers">Я постигаю искусство</option>
+            </select>
             <span class="text-danger"></span>
         </div>
     </div>

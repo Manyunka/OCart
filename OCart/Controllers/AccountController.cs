@@ -70,9 +70,9 @@ namespace OCart.Controllers
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
                 var result = await userManager.CreateAsync(user, model.Password);
-                await userManager.AddToRoleAsync(user, role.Name);
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, role.Name);
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
