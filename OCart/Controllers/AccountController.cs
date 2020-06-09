@@ -73,7 +73,7 @@ namespace OCart.Controllers
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, role.Name);
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                    //await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
 

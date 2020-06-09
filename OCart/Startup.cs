@@ -32,7 +32,12 @@ namespace OCart
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
-			services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			{
+				options.Password.RequiredLength = 6;
+				options.Password.RequireNonAlphanumeric = false;
+			})
+				.AddErrorDescriber<RussianIdentityErrorDescriber>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			services.AddScoped<IUserPermissionsService, UserPermissionsService>();
