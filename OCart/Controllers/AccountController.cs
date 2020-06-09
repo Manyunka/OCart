@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using OCart.Models;
 using OCart.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace OCart.Controllers
 {
@@ -18,14 +19,15 @@ namespace OCart.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILoggerFactory loggerFactory)
+            SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         // GET: /Account/Login
@@ -55,12 +57,56 @@ namespace OCart.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                IdentityRole role;
+                if (ApplicationRoles.Artists == model.UserRole)
+                {
+                    role = await roleManager.FindByNameAsync(ApplicationRoles.Artists);
+                }
+                else
+                {
+                    role = await roleManager.FindByNameAsync(ApplicationRoles.Customers);
+                }
+                
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+
+                var result = await userManager.CreateAsync(user, model.Password);
+                await userManager.AddToRoleAsync(user, role.Name);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToLocal(returnUrl);
+                }
+
+                AddErrors(result);
 
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        #region Helpers
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                this.ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (this.Url.IsLocalUrl(returnUrl))
+            {
+                return this.Redirect(returnUrl);
+            }
+            else
+            {
+                return this.Redirect("/");
+            }
+        }
+
+        #endregion
+
     }
 }
 
