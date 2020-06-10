@@ -4,48 +4,95 @@
 @{ ViewData["Title"] = "Log in"; }
 
 <h2>@ViewData["Title"].</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section>
-            <form class="form-horizontal">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input class="form-control" />
-                        <span class="text-danger"></span>
-                    </div>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OCart</title>
+
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="window-registr">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-6 left">
+                    OCart<br />
+                    Присоединись<br />
+                    к крупному<br />
+                    art<br />
+                    сообществу<br />
+                    России<br />
+                    и стран СНГ<br />
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
-                    <div class="col-md-10">
-                        <input class="form-control" />
-                        <span class="text-danger"></span>
+                <div class="col-6 right">
+                    <div class="text-right">
+                        Присоединиться
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            <label>
-                                <input />
-                            </label>
+
+                    <div style="text-align:center"> Уже есть аккаунт?<a href="#" style="color:palevioletred; height:20px">Войти</a></div>
+
+                    <form class="form-horizontal">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group" style="height:35px">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input class="form-control" placeholder="Введите имя" />
+                                <span class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
+                        <div class="form-group" style="height:35px">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+
+                                <input class="form-control" placeholder="Укажите ваш e-mail" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:35px">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input class="form-control" placeholder="Пароль" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group" style="height:120px">
+                            <label class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input class="form-control" placeholder="Подтвердите пароль" />
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!--Выпадающий список-->
+                        <div style="width:282px; padding: 6px 15px; font-size:22px; color:dimgrey"> Укажите тип аккаунта</div>
+                        <div class="input-group col-md-10" style="height:80px;">
+
+                            <select class="custom-select" id="inputGroupSelect04">
+                                <option selected>Я...</option>
+                                <option value="1">Создаю искусство</option>
+                                <option value="2">Постигаю искусство</option>
+
+                            </select>
+                        </div> <br />
+                        <!--Кнопка регистрации-->
+                        <div class="form-group" style="width:282px; height:80px; padding: 0px 15px;">
+                            <div style="  background: linear-gradient(to left,#ef8da5, #ffffff)" class="col-md-offset-2 col-md-10">
+                                <button href="#" type="submit" class="btn btn-default" style="font-size:22px; font-family:Akrobat">Зарегистрироваться</button>
+                            </div>
+                            <div style="font-size:10px">Поддтверждаю свое согласие с <a href="#" style="color:palevioletred; margin:0;">политикой OCart </a></div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <button type="submit" class="btn btn-default">Log in</button>
-                    </div>
-                </div>
-                <p>
-                    <a>Register as a new user?</a>
-                </p>
-            </form>
-        </section>
+            </div>
+        </div>
     </div>
-</div>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
