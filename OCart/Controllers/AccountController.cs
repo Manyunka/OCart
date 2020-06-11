@@ -42,9 +42,9 @@ namespace OCart.Controllers
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public IActionResult Register()
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -52,9 +52,9 @@ namespace OCart.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 IdentityRole role;
@@ -74,7 +74,7 @@ namespace OCart.Controllers
                 {
                     await userManager.AddToRoleAsync(user, role.Name);
                     //await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Login");
                 }
 
                 AddErrors(result);
@@ -89,19 +89,19 @@ namespace OCart.Controllers
         {
             foreach (var error in result.Errors)
             {
-                this.ModelState.AddModelError(string.Empty, error.Description);
+                ModelState.AddModelError(string.Empty, error.Description);
             }
         }
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
-            if (this.Url.IsLocalUrl(returnUrl))
+            if (Url.IsLocalUrl(returnUrl))
             {
-                return this.Redirect(returnUrl);
+                return Redirect(returnUrl);
             }
             else
             {
-                return this.Redirect("/");
+                return Redirect("/");
             }
         }
 
