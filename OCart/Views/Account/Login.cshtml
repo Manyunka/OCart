@@ -20,70 +20,49 @@
 
             <div class="row">
                 <div class="col-6 left">
-                    OCart<br />
-                    Присоединись<br />
-                    к крупному<br />
-                    art<br />
-                    сообществу<br />
-                    России<br />
-                    и стран СНГ<br />
+                    
                 </div>
                 <div class="col-6 right">
                     <div class="text-right">
-                        Присоединиться
+                       С возвращением!
                     </div>
 
-                    <div style="text-align:center"> Уже есть аккаунт?<a href="#" style="color:palevioletred; height:20px">Войти</a></div>
+                    <div style="text-align:center">Еще нет аккаунта?<a asp-area="" asp-controller="Account" asp-action="Register" style="color:palevioletred; height:20px">Регистрация</a></div>
 
                     <form class="form-horizontal">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group" style="height:35px">
                             <label class="col-md-2 control-label"></label>
-                            <div class="col-md-10">
-                                <input class="form-control" placeholder="Введите имя" />
+                                <div class="col-md-10">
+                                <input class="form-control" placeholder="Логин или e-mail" />
                                 <span class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group" style="height:35px">
-                            <label class="col-md-2 control-label"></label>
-                            <div class="col-md-10">
-
-                                <input class="form-control" placeholder="Укажите ваш e-mail" />
-                                <span class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" style="height:35px">
+                        
+                        <div class="form-group" style="height:100px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
                                 <input class="form-control" placeholder="Пароль" />
                                 <span class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group" style="height:120px">
+
+                        <div style="width:282px; padding: 0px 15px; font-size:20px; color:dimgrey">Забыли пароль?<br /> Мы отправим вам его на e-mail</div>
+                        <div class="form-group" style="height:80px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input class="form-control" placeholder="Подтвердите пароль" />
+                                <input class="form-control" placeholder="Укажите ваш e-mail" />
                                 <span class="text-danger"></span>
                             </div>
                         </div>
 
-                        <!--Выпадающий список-->
-                        <div style="width:282px; padding: 6px 15px; font-size:22px; color:dimgrey"> Укажите тип аккаунта</div>
-                        <div class="input-group col-md-10" style="height:80px;">
-
-                            <select class="custom-select" id="inputGroupSelect04">
-                                <option selected>Я...</option>
-                                <option value="1">Создаю искусство</option>
-                                <option value="2">Постигаю искусство</option>
-
-                            </select>
-                        </div> <br />
-                        <!--Кнопка регистрации-->
+                        
+                        <!--Кнопка-->
                         <div class="form-group" style="width:282px; height:80px; padding: 0px 15px;">
                             <div style="  background: linear-gradient(to left,#ef8da5, #ffffff)" class="col-md-offset-2 col-md-10">
-                                <button href="#" type="submit" class="btn btn-default" style="font-size:22px; font-family:Akrobat">Зарегистрироваться</button>
+                                <button href="#" type="submit" class="btn btn-default" style="font-size:22px; font-family:Akrobat">Получить пароль</button>
                             </div>
-                            <div style="font-size:10px">Поддтверждаю свое согласие с <a href="#" style="color:palevioletred; margin:0;">политикой OCart </a></div>
+                            
                         </div>
                     </form>
                 </div>
