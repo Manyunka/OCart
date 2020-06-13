@@ -65,6 +65,27 @@ namespace OCart.Controllers
             return View(model);
         }
 
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                ModelState.AddModelError(string.Empty, "Пользователь с таким e-mail не существует.");
+                return PartialView("ForgotPassword", model);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return PartialView("ForgotPassword", model);
+        }
 
         // GET: /Account/Register
         [HttpGet]
