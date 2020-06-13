@@ -55,11 +55,6 @@ namespace OCart.Controllers
                     {
                         return RedirectToAction("Index", "Gallery");
                     }
-
-                    if (result.IsLockedOut)
-                    {
-                        return View("Lockout");
-                    }
                 }
 
                 ModelState.AddModelError(string.Empty, "Неправильное имя/неправильный e-mail или пароль.");
@@ -113,6 +108,15 @@ namespace OCart.Controllers
 
             }
             return View(model);
+        }
+
+        // POST: /Account/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return Redirect("/");
         }
 
         #region Helpers
