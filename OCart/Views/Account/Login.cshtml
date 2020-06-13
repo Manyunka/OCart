@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
+﻿@model OCart.Models.AccountViewModels.LoginViewModel
 
 @{ ViewData["Title"] = "Log in"; }
 
@@ -7,30 +6,31 @@
 <div class="row">
     <div class="col-md-8">
         <section>
-            <form class="form-horizontal">
+            <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal">
                 <h4>С возвращением!</h4>
                 <a class="btn" asp-action="Register">Регистрация</a>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
+                    <label asp-for="UserName" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input class="form-control" />
-                        <span class="text-danger"></span>
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-2 control-label"></label>
+                    <label asp-for="Password" class="col-md-2 control-label"></label>
                     <div class="col-md-10">
-                        <input class="form-control" />
-                        <span class="text-danger"></span>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            <label>
-                                <input />
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
                             </label>
                         </div>
                     </div>

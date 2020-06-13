@@ -19,8 +19,5 @@ namespace OCart.Models.AccountViewModels
 
         [Display(Name = "Запомнить меня?")]
         public bool RememberMe { get; set; }
-
-        [Display(Name = "E-mail")]
-        public string Email { get; set; }
     }
 }

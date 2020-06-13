@@ -33,12 +33,9 @@ namespace OCart.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(String returnUrl = null)
+        public async Task<IActionResult> Login()
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ViewData["ReturnUrl"] = returnUrl;
-
             return View();
         }
 
@@ -46,9 +43,8 @@ namespace OCart.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByNameAsync(model.UserName) ?? await userManager.FindByEmailAsync(model.UserName);
@@ -57,7 +53,7 @@ namespace OCart.Controllers
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Gallery");
                     }
 
                     if (result.IsLockedOut)
@@ -66,7 +62,7 @@ namespace OCart.Controllers
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Неправильное имя/неправильный e-mail или пароль.");
                 return View(model);
             }
 
