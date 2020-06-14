@@ -1,4 +1,5 @@
-﻿@{ ViewData["Title"] = "Register"; }
+﻿@model OCart.Models.AccountViewModels.RegisterViewModel
+@{ ViewData["Title"] = "Register"; }
 
 <h2>@ViewData["Title"].</h2>
 
@@ -15,10 +16,10 @@
 
     <div class="window-registr">
         <div class="container">
-            
+
             <div class="row">
                 <div class="col-6 left">
-                    OCart<br /> 
+                    OCart<br />
                     Присоединись<br />
                     к крупному<br />
                     art<br />
@@ -29,53 +30,50 @@
                 <div class="col-6 right">
                     <div class="text-right">
                         Присоединиться
-                     </div>
-                  
-                    <div style="text-align:center"> Уже есть аккаунт?<a asp-area="" asp-controller="Account" asp-action="Login" style="color:palevioletred; height:20px">Войти</a></div>
-
-                    <form class="form-horizontal">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group" style="height:35px">
+                    </div>
+                    
+                    <div style="text-align:center"> Уже есть аккаунт?<a asp-controller="Account" asp-action="Login" style="color:palevioletred; height:20px">Войти</a></div>
+                    <form asp-controller="Account" asp-action="Register" method="post" class="form-horizontal">
+                        <div class="form-group" style="height:55px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input class="form-control" placeholder="Введите имя" />
-                                <span class="text-danger"></span>
+                                <input asp-for="UserName" class="form-control" placeholder="Введите имя" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group" style="height:35px">
+                        <div class="form-group" style="height:55px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-
-                                <input class="form-control" placeholder="Укажите ваш e-mail" />
-                                <span class="text-danger"></span>
+                                <input asp-for="Email" class="form-control" placeholder="Укажите ваш e-mail" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group" style="height:35px">
+                        <div class="form-group" style="height:55px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input class="form-control" placeholder="Пароль" />
-                                <span class="text-danger"></span>
+                                <input asp-for="Password" class="form-control" placeholder="Пароль" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="form-group" style="height:120px">
+                        <div class="form-group" style="height:60px">
                             <label class="col-md-2 control-label"></label>
                             <div class="col-md-10">
-                                <input class="form-control" placeholder="Подтвердите пароль" />
-                                <span class="text-danger"></span>
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="Подтвердите пароль" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
                         </div>
 
                         <!--Выпадающий список-->
                         <div style="width:282px; padding: 6px 15px; font-size:22px; color:dimgrey"> Укажите тип аккаунта</div>
-                        <div class="input-group col-md-10" style="height:80px;">
-
-                            <select class="custom-select" id="inputGroupSelect04">
-                                <option selected>Я...</option>
-                                <option value="1">Создаю искусство</option>
-                                <option value="2">Постигаю искусство</option>
-
+                        <div class="input-group col-md-10" style="height:55px;">
+                            <select asp-for="UserRole" class="custom-select" id="inputGroupSelect04">
+                                <option value="Artists">Создаю искусство</option>
+                                <option value="Customers">Постигаю искусство</option>
                             </select>
-                        </div> <br />
+                            <span asp-validation-for="UserRole" class="text-danger"></span>
+                        </div>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <br />
                         <!--Кнопка регистрации-->
                         <div class="form-group" style="width:282px; height:80px; padding: 0px 15px;">
                             <div style="  background: linear-gradient(to left,#ef8da5, #ffffff)" class="col-md-offset-2 col-md-10">
