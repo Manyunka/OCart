@@ -7,6 +7,7 @@
 
 <form asp-controller="Account" asp-action="Login" method="post" class="form-horizontal">
     <h4>С возвращением!</h4>
+    <a class="btn" asp-action="Register">Регистрация</a>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
@@ -38,8 +39,8 @@
             <button type="submit" class="btn btn-default">Войти</button>
         </div>
     </div>
+    <a class="btn" asp-action="ForgotPassword">Забыли пароль?</a>
 </form>
-@await Html.PartialAsync("ForgotPassword", new ForgotPasswordViewModel())
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

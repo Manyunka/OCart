@@ -65,7 +65,15 @@ namespace OCart.Controllers
             return View(model);
         }
 
-        // POST: /Account/Login
+        // GET: /Account/ForgotPassword
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ForgotPassword
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -80,11 +88,11 @@ namespace OCart.Controllers
                 }
 
                 ModelState.AddModelError(string.Empty, "Пользователь с таким e-mail не существует.");
-                return PartialView("ForgotPassword", model);
+                return View(model);
             }
 
             // If we got this far, something failed, redisplay form
-            return PartialView("ForgotPassword", model);
+            return View(model);
         }
 
         // GET: /Account/Register
