@@ -20,14 +20,17 @@ namespace OCart.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ILogger logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+            SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager,
+            ILoggerFactory loggerFactory)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.logger = loggerFactory.CreateLogger<AccountController>();
         }
 
         // GET: /Account/Login
@@ -53,6 +56,7 @@ namespace OCart.Controllers
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
                     {
+                        logger.LogInformation(1, "User logged in.");
                         return RedirectToAction("Index", "Gallery");
                     }
                 }
@@ -84,6 +88,7 @@ namespace OCart.Controllers
                 var user = await userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
+                    logger.LogInformation(2, "User changed password.");
                     return RedirectToAction("Login");
                 }
 
@@ -129,6 +134,7 @@ namespace OCart.Controllers
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, role.Name);
+                    this.logger.LogInformation(3, "User created a new account with password.");
                     //await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Login");
                 }
@@ -145,6 +151,7 @@ namespace OCart.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            this.logger.LogInformation(4, "User logged out.");
             return Redirect("/");
         }
 
