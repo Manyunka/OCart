@@ -10,6 +10,8 @@ body {
     background: url(../img/Фон1.png);
     background-repeat: no-repeat;
     background-size: cover;
+    z-index:1;
+    
 }
 
 .logo {
@@ -43,4 +45,23 @@ body {
     }
     a{
        text-decoration:none;
+    }
+
+.window {
+    display: flex;
+    width: 750px;
+    height: 700px;
+    margin-top:50px;
+    background-image: url(../img/Auction/pink.png);
+    z-index: 2;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+    p {
+        background:white;
     }
