@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OCart.Models;
+using OCart.Services;
 
 namespace OCart
 {
@@ -31,9 +32,18 @@ namespace OCart
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
-			services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+			{
+				options.Password.RequiredLength = 6;
+				options.Password.RequireNonAlphanumeric = false;
+				options.User.RequireUniqueEmail = true;
+			})
+				.AddErrorDescriber<RussianIdentityErrorDescriber>()
 				.AddEntityFrameworkStores<ApplicationDbContext>();
-			services.AddControllersWithViews();
+
+			services.AddScoped<IUserPermissionsService, UserPermissionsService>();
+
+			services.AddMvc();
 			services.AddRazorPages();
 		}
 
