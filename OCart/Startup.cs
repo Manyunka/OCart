@@ -32,6 +32,7 @@ namespace OCart
 			services.AddDbContext<ApplicationDbContext>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
+
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 			{
 				options.Password.RequiredLength = 6;
@@ -39,7 +40,8 @@ namespace OCart
 				options.User.RequireUniqueEmail = true;
 			})
 				.AddErrorDescriber<RussianIdentityErrorDescriber>()
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
 
 			services.AddScoped<IUserPermissionsService, UserPermissionsService>();
 
