@@ -7,12 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCart.Data;
 using OCart.Models;
+using OCart.Models.ViewModels;
+using OCart.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace OCart.Controllers
 {
     public class GalleryController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserPermissionsService userPermissions;
 
         public GalleryController(ApplicationDbContext context)
         {
@@ -22,7 +28,9 @@ namespace OCart.Controllers
         // GET: Gallery
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = context.Posts.Include(p => p.Category).Include(p => p.Creator);
+            var applicationDbContext = context.Posts
+                .Include(p => p.Category)
+                .Include(p => p.Creator);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -47,11 +55,12 @@ namespace OCart.Controllers
         }
 
         // GET: Gallery/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
-            return View();
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
+            return View(new PostCreateModel());
         }
 
         // POST: Gallery/Create
@@ -59,18 +68,31 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatorId,CategoryId,Created,Modified,Text")] Post post)
+        public async Task<IActionResult> Create(PostCreateModel model)
         {
+            var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
-                post.Id = Guid.NewGuid();
+                var now = DateTime.UtcNow;
+
+                var post = new Post
+                {
+                    CreatorId = user.Id,
+                    Created = now,
+                    Modified = now,
+                    CategoryId = model.CategoryId,
+                    Text = model.Text
+                };
+
                 context.Add(post);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", post.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
-            return View(post);
+
+            var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
+            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", model.CategoryId);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
+            return View(model);
         }
 
         // GET: Gallery/Edit/5
