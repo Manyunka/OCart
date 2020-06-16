@@ -47,21 +47,82 @@ body {
        text-decoration:none;
     }
 
-.window {
+
+.dil {
     display: flex;
-    width: 750px;
-    height: 700px;
-    margin-top:50px;
-    background-image: url(../img/Auction/pink.png);
-    z-index: 2;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    
+     
 }
 
-    p {
-        background:white;
-    }
+.wrap-content {
+     
+    margin-left: 400px;
+    margin-top: 100px;
+    
+      
+}
+
+
+.sqrt_2 {
+    background-image: url(../img/Auction/pink.png);
+    width: 800px;
+    height: 700px;
+    border: 6px solid #ff008f;
+    list-style-type: none; /* Убираем маркеры */
+    margin-top: 20px;
+}
+
+.red_sqrt {
+    margin: -40px 0 0 -40px; /* 1-вверх 2-вправо 3- вниз 4 влево*/
+    width: 800px;
+    height: 700px;
+    background-color: white;
+}
+
+/*маленькие квадраты*/
+
+.wrap-content2 {
+   
+    margin-left: 20px;
+    margin-top: 100px;
+}
+
+.sqrt_pink_small {
+    background-image: url(../img/Auction/pink.png);
+    width: 300px;
+    height: 220px;
+    border: 6px solid #ff008f;
+    list-style-type: none; /* Убираем маркеры */
+    margin-top: 20px;
+}
+
+.sqrt_white_small {
+    margin: -40px 0 0 -40px; /* 1-вверх 2-вправо 3- вниз 4 влево*/
+    width: 300px;
+    height: 220px;
+    background-color: white;
+}
+
+.part1 {
+    display: flex;
+    font-size: 30px;
+    font-family: Akrobat;
+    text-align: left;
+    height: 60px;
+}
+
+.part2{
+    background:pink;
+    height:400px;
+}
+
+.part3{
+    height:50px;
+}
+
+.crug {
+    width: 50px;
+    height: 50px;
+    background: pink;
+    border-radius: 50%;
+}
