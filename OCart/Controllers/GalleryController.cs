@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using OCart.Models;
 using OCart.Models.ViewModels;
 using OCart.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
 
@@ -23,12 +24,12 @@ namespace OCart.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserPermissionsService userPermissions;
         private static readonly HashSet<string> AllowedExtensions = new HashSet<string> { ".jpg", ".jpeg", ".png", ".gif" };
-        private readonly IHostEnvironment hostingEnvironment;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
         public GalleryController(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             IUserPermissionsService userPermissions,
-            IHostEnvironment hostingEnvironment)
+            IWebHostEnvironment hostingEnvironment)
         {
             this.context = context;
             this.userManager = userManager;
@@ -81,6 +82,16 @@ namespace OCart.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostCreateModel model)
         {
+            foreach (var p in model.Pictures)
+            {
+                var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
+                var fileExt = Path.GetExtension(fileName);
+                if (!AllowedExtensions.Contains(fileExt))
+                {
+                    ModelState.AddModelError(nameof(p), "This file type is prohibited");
+                }
+            }
+
             var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
@@ -94,6 +105,26 @@ namespace OCart.Controllers
                     CategoryId = model.CategoryId,
                     Text = model.Text
                 };
+
+                foreach (var p in model.Pictures)
+                {
+                    var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
+                    var fileExt = Path.GetExtension(fileName);
+
+                    var postPicture = new PostPicture
+                    {
+                        Created = DateTime.UtcNow,
+                        PostId = post.Id,
+                        Name = fileName
+                    };
+
+                    var attachmentPath = Path.Combine(hostingEnvironment.WebRootPath, $"attachments/{post.Id:N}", fileName + fileExt);
+                    postPicture.Path = $"/attachments/{post.Id:N}/{fileName}{fileExt}";
+
+                    using var fileStream = new FileStream(attachmentPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Read);
+                    await p.CopyToAsync(fileStream);
+
+                }
 
                 context.Add(post);
                 await context.SaveChangesAsync();
