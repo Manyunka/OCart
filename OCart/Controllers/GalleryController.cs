@@ -10,7 +10,10 @@ using OCart.Models;
 using OCart.Models.ViewModels;
 using OCart.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Net.Http.Headers;
+
 
 namespace OCart.Controllers
 {
@@ -19,10 +22,18 @@ namespace OCart.Controllers
         private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserPermissionsService userPermissions;
+        private static readonly HashSet<string> AllowedExtensions = new HashSet<string> { ".jpg", ".jpeg", ".png", ".gif" };
+        private readonly IHostEnvironment hostingEnvironment;
 
-        public GalleryController(ApplicationDbContext context)
+        public GalleryController(ApplicationDbContext context,
+            UserManager<ApplicationUser> userManager,
+            IUserPermissionsService userPermissions,
+            IHostEnvironment hostingEnvironment)
         {
             this.context = context;
+            this.userManager = userManager;
+            this.userPermissions = userPermissions;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Gallery
