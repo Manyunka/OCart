@@ -59,6 +59,7 @@
   <ItemGroup>
     <Folder Include="Views\Auction\" />
     <Folder Include="wwwroot\img\Auction\" />
+    <Folder Include="wwwroot\posts\" />
   </ItemGroup>
 
 </Project>
