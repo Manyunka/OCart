@@ -107,17 +107,21 @@ body {
     display: flex;
     font-size: 30px;
     font-family: Akrobat;
-    text-align: left;
+    
     height: 60px;
+    margin-left:10px;
 }
 
 .part2{
     background:pink;
     height:400px;
+    text-align:center;
+    font-weight:bold;
 }
 
 .part3{
     height:50px;
+    margin-left:20px;
 }
 
 .crug {
