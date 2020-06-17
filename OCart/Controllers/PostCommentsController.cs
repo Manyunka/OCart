@@ -63,7 +63,7 @@ namespace OCart.Controllers
             }
 
             var post = await context.Posts
-                .SingleOrDefaultAsync(m => m.Id == postId);
+                .SingleOrDefaultAsync(p => p.Id == postId);
             if (post == null)
             {
                 return NotFound();
@@ -87,13 +87,13 @@ namespace OCart.Controllers
             }
 
             var post = await context.Posts
-                .SingleOrDefaultAsync(m => m.Id == postId);
+                .SingleOrDefaultAsync(p => p.Id == postId);
             if (post == null)
             {
                 return NotFound();
             }
 
-            var user = await this.userManager.GetUserAsync(this.HttpContext.User);
+            var user = await userManager.GetUserAsync(HttpContext.User);
 
             if (ModelState.IsValid)
             {
@@ -130,9 +130,9 @@ namespace OCart.Controllers
             {
                 return NotFound();
             }
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
-            ViewData["PostId"] = new SelectList(context.Posts, "Id", "CreatorId", postComment.PostId);
-            return View(postComment);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
+            ViewData["PostId"] = postComment.PostId;
+            return View(new PostCommentEditModel());
         }
 
         // POST: PostComments/Edit/5
@@ -140,35 +140,29 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,PostId,CreatorId,Created,Modified,Text")] PostComment postComment)
+        public async Task<IActionResult> Edit(Guid? id, PostCommentEditModel model)
         {
-            if (id != postComment.Id)
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var postComment = await context.PostComments.FindAsync(id);
+            if (postComment == null)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    context.Update(postComment);
-                    await context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PostCommentExists(postComment.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                postComment.Text = model.Text;
+                postComment.Modified = DateTime.UtcNow;
+                
+                await context.SaveChangesAsync();
+                return RedirectToAction("Details", "Posts", new { id = postComment.PostId });
             }
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
-            ViewData["PostId"] = new SelectList(context.Posts, "Id", "CreatorId", postComment.PostId);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
+            ViewData["PostId"] = postComment.PostId;
             return View(postComment);
         }
 
