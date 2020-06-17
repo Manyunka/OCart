@@ -197,36 +197,78 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreatorId,CategoryId,Created,Modified,Text")] Post post)
+        public async Task<IActionResult> Edit(Guid? id, PostEditModel model)
         {
-            if (id != post.Id)
+            if (id == null)
             {
                 return NotFound();
             }
 
+            var post = await context.Posts
+                .Include(p => p.PostPictures)
+                .SingleOrDefaultAsync(p => p.Id == id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var p in model.Pictures)
+            {
+                if (p != null)
+                {
+                    var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
+                    var fileExt = Path.GetExtension(fileName);
+                    if (!AllowedExtensions.Contains(fileExt))
+                    {
+                        ModelState.AddModelError(nameof(p), "This file type is prohibited");
+                    }
+                }
+            }
+
             if (ModelState.IsValid)
             {
-                try
+                string[] filePaths = Directory.GetFiles(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
+                foreach (string filePath in filePaths)
+                    System.IO.File.Delete(filePath);
+
+                var now = DateTime.UtcNow;
+
+                post.Modified = now;
+                post.Text = model.Text;
+
+                foreach (var p in model.Pictures)
                 {
-                    context.Update(post);
-                    await context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PostExists(post.Id))
+                    if (p != null)
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
+                        var fileExt = Path.GetExtension(fileName);
+
+                        var postPicture = new PostPicture
+                        {
+                            Created = DateTime.UtcNow,
+                            PostId = post.Id,
+                            Name = fileName
+                        };
+
+                        var attachmentPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"), fileName);
+                        postPicture.Path = $"/posts/{post.Id:N}/{fileName}";
+
+                        using var fileStream = new FileStream(attachmentPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Read);
+                        await p.CopyToAsync(fileStream);
+
+                        var pictures = context.PostPictures.Where(p => p.PostId == post.Id);
+                        context.PostPictures.RemoveRange(pictures);
+                        context.Add(postPicture);
                     }
                 }
+
+                await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", post.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
-            return View(post);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
+            return View(model);
         }
 
         // GET: Gallery/Delete/5
