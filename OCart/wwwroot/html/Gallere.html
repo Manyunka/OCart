@@ -21,13 +21,14 @@
             </ul>
         </header>
         <div class="popular" style="background:yellow">
-            <button>Жанры</button> <button>Популярное</button>
+            <button onclick="chpok('text')">Жанры</button> 
+            <button onclick="chpok('text')">Популярное</button>
         </div>
     </div>
 
 
     <!--жанры и популярное-->
-    <div class="dil">
+    <div class="dil" id="text">
         <div class="card-deck">
             <div class="card">
                 <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
@@ -132,7 +133,7 @@
             <div class="card">
                 <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h5 class="card-title">Название карточки</h5>      
+                    <h5 class="card-title">Название карточки</h5>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
@@ -149,5 +150,13 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript" language="javascript">
+        function chpok(id) {
+            elem = document.getElementById(id); //находим блок div по его id, который передали в функцию
+            state = elem.style.display; //смотрим, включен ли сейчас элемент
+            if (state == '') elem.style.display = 'none'; //если включен, то выключаем
+            else elem.style.display = ''; //иначе - включаем
+        }
+    </script>
 </body>
 </html>
