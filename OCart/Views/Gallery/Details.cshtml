@@ -54,6 +54,24 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Text)
             </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PostPictures)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var c in Model.PostPictures)
+                {
+                    <span>@c.Name</span>
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PostComments)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var c in Model.PostComments)
+                {
+                    <span>@c.Text</span>
+                }
+            </dd>
         </dl>
     </div>
     <div>

@@ -59,6 +59,8 @@ namespace OCart.Controllers
             var post = await context.Posts
                 .Include(p => p.Category)
                 .Include(p => p.Creator)
+                .Include(p => p.PostPictures)
+                .Include(p => p.PostComments)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
