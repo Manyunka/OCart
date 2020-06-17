@@ -228,7 +228,7 @@ namespace OCart.Controllers
 
             if (ModelState.IsValid)
             {
-                string[] filePaths = Directory.GetFiles(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
+                var filePaths = Directory.GetFiles(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
                 foreach (string filePath in filePaths)
                     System.IO.File.Delete(filePath);
 
@@ -294,17 +294,26 @@ namespace OCart.Controllers
         // POST: Gallery/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
-            var post = await context.Posts.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await context.Posts
+                .FirstOrDefaultAsync(p => p.Id == id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            var folderPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"));
+            Directory.Delete(folderPath, true);
+
             context.Posts.Remove(post);
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool PostExists(Guid id)
-        {
-            return context.Posts.Any(e => e.Id == id);
         }
     }
 }
