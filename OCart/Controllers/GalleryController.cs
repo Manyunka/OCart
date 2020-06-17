@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 
 namespace OCart.Controllers
@@ -157,14 +158,38 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var post = await context.Posts.FindAsync(id);
+            var post = await context.Posts
+                .Include(p => p.PostPictures)
+                .SingleOrDefaultAsync(p => p.Id == id);
             if (post == null)
             {
                 return NotFound();
             }
+
+            var pictures = new List<IFormFile>();
+            foreach (var p in post.PostPictures)
+            {
+                var attachmentPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"), p.Name);;
+                using var stream = new FileStream(attachmentPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
+                var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "multipart/form-data"
+                };
+
+                pictures.Add(file);
+            }
+
+            var model = new PostEditModel()
+            {
+                CategoryId = post.CategoryId,
+                Text = post.Text,
+                Pictures = pictures
+            };
+
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", post.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
-            return View(post);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", post.CreatorId);
+            return View(model);
         }
 
         // POST: Gallery/Edit/5

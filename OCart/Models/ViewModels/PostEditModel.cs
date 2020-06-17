@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace OCart.Models.ViewModels
 {
-    public class PostCreateModel
+    public class PostEditModel
     {
         [Required]
         public string Text { get; set; }
