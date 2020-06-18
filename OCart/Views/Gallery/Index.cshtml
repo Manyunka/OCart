@@ -7,6 +7,9 @@
 
 <h1>Index</h1>
 
+<p>
+    <a asp-controller="Posts" asp-action="Index">Популярное</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +35,7 @@
                 }
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-categoryId="@item.Id">Details</a> |
             </td>
         </tr>
 }

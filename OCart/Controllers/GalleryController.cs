@@ -40,23 +40,27 @@ namespace OCart.Controllers
         }
 
         // GET: Gallery/Details/5
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid? categoryId)
         {
-            if (id == null)
+            if (categoryId == null)
             {
                 return NotFound();
             }
 
-            var post = await context.Posts
+            var category = await context.Categories
+                .FirstOrDefaultAsync(m => m.Id == categoryId);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var posts = await context.Posts
                 .Include(p => p.Category)
                 .Include(p => p.Creator)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (post == null)
-            {
-                return NotFound();
-            }
+                .Include(p => p.PostPictures)
+                .ToListAsync();
 
-            return View(post);
+            return View(posts);
         }
 
         /*// GET: Gallery/Create
