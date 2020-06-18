@@ -70,7 +70,7 @@ namespace OCart.Controllers
             }
 
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
-            ViewData["PostId"] = post;
+            ViewBag.Post = post;
             return View(new PostCommentEditModel());
         }
 
@@ -113,7 +113,7 @@ namespace OCart.Controllers
                 return RedirectToAction("Details", "Posts", new { id = post.Id });
             }
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
-            ViewData["PostId"] = post;
+            ViewBag.Post = post;
             return View(model);
         }
 
@@ -125,14 +125,22 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var postComment = await context.PostComments.FindAsync(id);
+            var postComment = await context.PostComments
+                .Include(c => c.Post)
+                .SingleOrDefaultAsync(c => c.Id == id);
             if (postComment == null)
             {
                 return NotFound();
             }
+
+            var model = new PostCommentEditModel
+            {
+                Text = postComment.Text
+            };
+
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
-            ViewData["PostId"] = postComment.PostId;
-            return View(new PostCommentEditModel());
+            ViewBag.Post = postComment.Post;
+            return View(model);
         }
 
         // POST: PostComments/Edit/5
@@ -147,7 +155,9 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var postComment = await context.PostComments.FindAsync(id);
+            var postComment = await context.PostComments
+                .Include(c => c.Post)
+                .SingleOrDefaultAsync(c => c.Id == id);
             if (postComment == null)
             {
                 return NotFound();
@@ -162,7 +172,7 @@ namespace OCart.Controllers
                 return RedirectToAction("Details", "Posts", new { id = postComment.PostId });
             }
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", postComment.CreatorId);
-            ViewData["PostId"] = postComment.PostId;
+            ViewBag.Post = postComment.Post;
             return View(postComment);
         }
 
@@ -194,7 +204,7 @@ namespace OCart.Controllers
             var postComment = await context.PostComments.FindAsync(id);
             context.PostComments.Remove(postComment);
             await context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Posts", new { id = postComment.PostId });
         }
 
         private bool PostCommentExists(Guid id)
