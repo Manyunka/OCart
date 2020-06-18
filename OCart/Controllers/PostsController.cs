@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace OCart.Controllers
 {
+    [Authorize]
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -39,6 +40,7 @@ namespace OCart.Controllers
         }
 
         // GET: Gallery
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = context.Posts
@@ -50,6 +52,7 @@ namespace OCart.Controllers
         }
 
         // GET: Gallery/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -74,6 +77,11 @@ namespace OCart.Controllers
         // GET: Gallery/Create
         public async Task<IActionResult> Create()
         {
+            if (!userPermissions.CanCreatePost())
+            {
+                return NotFound();
+            }
+
             var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
@@ -87,6 +95,11 @@ namespace OCart.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PostCreateModel model)
         {
+            if (!userPermissions.CanCreatePost())
+            {
+                return NotFound();
+            }
+
             foreach (var p in model.Pictures)
             {
                 if (p != null)
@@ -161,7 +174,7 @@ namespace OCart.Controllers
             var post = await context.Posts
                 .Include(p => p.PostPictures)
                 .SingleOrDefaultAsync(p => p.Id == id);
-            if (post == null)
+            if (post == null || !userPermissions.CanEditPost(post))
             {
                 return NotFound();
             }
@@ -208,7 +221,7 @@ namespace OCart.Controllers
                 .Include(p => p.PostPictures)
                 .SingleOrDefaultAsync(p => p.Id == id);
 
-            if (post == null)
+            if (post == null || !userPermissions.CanEditPost(post))
             {
                 return NotFound();
             }
@@ -283,7 +296,7 @@ namespace OCart.Controllers
                 .Include(p => p.Category)
                 .Include(p => p.Creator)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (post == null)
+            if (post == null || !userPermissions.CanEditPost(post))
             {
                 return NotFound();
             }
@@ -303,7 +316,7 @@ namespace OCart.Controllers
 
             var post = await context.Posts
                 .FirstOrDefaultAsync(p => p.Id == id);
-            if (post == null)
+            if (post == null || !userPermissions.CanEditPost(post))
             {
                 return NotFound();
             }
