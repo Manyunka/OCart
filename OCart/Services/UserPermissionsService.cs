@@ -147,7 +147,7 @@ namespace OCart.Services
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == order.Commission.CreatorId;
         }
 
-        public bool CanMakeBet(Auction auction)
+        public bool CanMakeBet()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
             {
@@ -156,7 +156,7 @@ namespace OCart.Services
 
             return true;
         }
-        public bool CanBuy(Commission commission)
+        public bool CanBuy()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
             {
@@ -166,7 +166,7 @@ namespace OCart.Services
             return true;
         }
 
-        public bool CanCreatePost(Post post)
+        public bool CanCreatePost()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
             {
@@ -176,7 +176,7 @@ namespace OCart.Services
             return true;
         }
 
-        public bool CanCreateAuction(Auction auction)
+        public bool CanCreateAuction()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
             {
@@ -186,7 +186,7 @@ namespace OCart.Services
             return true;
         }
 
-        public bool CanCreateCommission(Commission commission)
+        public bool CanCreateCommission()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
             {

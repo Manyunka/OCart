@@ -8,17 +8,17 @@ namespace OCart.Services
 {
     public interface IUserPermissionsService
     {
-        bool CanCreatePost(Post post);
+        bool CanCreatePost();
         bool CanEditPost(Post post);
         bool CanEditPostComment(PostComment postComment);
 
         bool CanEditArtistComment(ArtistComment artistComment);
 
-        bool CanCreateAuction(Auction auction);
+        bool CanCreateAuction();
         bool CanEditAuction(Auction auction);
         bool CanEditAuctionComment(AuctionComment auctionComment);
 
-        bool CanCreateCommission(Commission commission);
+        bool CanCreateCommission();
         bool CanEditCommission(Commission commission);
         bool CanEditCommissionComment(CommissionComment commissionComment);
 
@@ -30,8 +30,8 @@ namespace OCart.Services
         bool CanChangeAuctionOrderStatus(AuctionOrder order);
         bool CanChangeCommissionOrderStatus(CommissionOrder order);
 
-        bool CanMakeBet(Auction auction);
-        bool CanBuy(Commission commission);
+        bool CanMakeBet();
+        bool CanBuy();
     }
 
 }
