@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OCart.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Picture
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @if (ViewBag.Pictures.ContainsKey(item.Id))
+                {
+                    @ViewBag.Pictures[item.Id]
+                }
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
