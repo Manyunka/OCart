@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace OCart.Controllers
 {
-    public class GalleryController : Controller
+    public class PostsController : Controller
     {
         private readonly ApplicationDbContext context;
         private readonly UserManager<ApplicationUser> userManager;
@@ -27,7 +27,7 @@ namespace OCart.Controllers
         private static readonly HashSet<string> AllowedExtensions = new HashSet<string> { ".jpg", ".jpeg", ".png", ".gif" };
         private readonly IWebHostEnvironment hostingEnvironment;
 
-        public GalleryController(ApplicationDbContext context,
+        public PostsController(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             IUserPermissionsService userPermissions,
             IWebHostEnvironment hostingEnvironment)
