@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace OCart.Controllers
 {
+    [Authorize]
     public class PostCommentsController : Controller
     {
         private readonly ApplicationDbContext context;
@@ -128,7 +129,7 @@ namespace OCart.Controllers
             var postComment = await context.PostComments
                 .Include(c => c.Post)
                 .SingleOrDefaultAsync(c => c.Id == id);
-            if (postComment == null)
+            if (postComment == null || !userPermissions.CanEditPostComment(postComment))
             {
                 return NotFound();
             }
@@ -158,7 +159,7 @@ namespace OCart.Controllers
             var postComment = await context.PostComments
                 .Include(c => c.Post)
                 .SingleOrDefaultAsync(c => c.Id == id);
-            if (postComment == null)
+            if (postComment == null || !userPermissions.CanEditPostComment(postComment))
             {
                 return NotFound();
             }
@@ -188,7 +189,7 @@ namespace OCart.Controllers
                 .Include(p => p.Creator)
                 .Include(p => p.Post)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (postComment == null)
+            if (postComment == null || !userPermissions.CanEditPostComment(postComment))
             {
                 return NotFound();
             }
@@ -201,15 +202,22 @@ namespace OCart.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var postComment = await context.PostComments.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var postComment = await context.PostComments
+                .Include(p => p.Creator)
+                .Include(p => p.Post)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (postComment == null || !userPermissions.CanEditPostComment(postComment))
+            {
+                return NotFound();
+            }
             context.PostComments.Remove(postComment);
             await context.SaveChangesAsync();
             return RedirectToAction("Details", "Posts", new { id = postComment.PostId });
-        }
-
-        private bool PostCommentExists(Guid id)
-        {
-            return context.PostComments.Any(e => e.Id == id);
         }
     }
 }
