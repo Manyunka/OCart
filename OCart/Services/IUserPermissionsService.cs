@@ -8,14 +8,17 @@ namespace OCart.Services
 {
     public interface IUserPermissionsService
     {
+        bool CanCreatePost(Post post);
         bool CanEditPost(Post post);
         bool CanEditPostComment(PostComment postComment);
 
         bool CanEditArtistComment(ArtistComment artistComment);
 
+        bool CanCreateAuction(Auction auction);
         bool CanEditAuction(Auction auction);
         bool CanEditAuctionComment(AuctionComment auctionComment);
 
+        bool CanCreateCommission(Commission commission);
         bool CanEditCommission(Commission commission);
         bool CanEditCommissionComment(CommissionComment commissionComment);
 

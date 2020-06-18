@@ -165,5 +165,35 @@ namespace OCart.Services
 
             return true;
         }
+
+        public bool CanCreatePost(Post post)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCreateAuction(Auction auction)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCreateCommission(Commission commission)
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
