@@ -7,22 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCart.Data;
 using OCart.Models;
+using OCart.Models.ViewModels;
+using OCart.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace OCart.Controllers
 {
     public class AuctionsController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserPermissionsService userPermissions;
 
-        public AuctionsController(ApplicationDbContext context)
+        public AuctionsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IUserPermissionsService userPermissions)
         {
             this.context = context;
+            this.userManager = userManager;
+            this.userPermissions = userPermissions;
         }
 
         // GET: Auctions
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = context.Auctions.Include(a => a.Category).Include(a => a.Creator);
+            var applicationDbContext = context.Auctions
+                .Include(a => a.Category)
+                .Include(a => a.Creator)
+                .OrderByDescending(a => a.Created);
             return View(await applicationDbContext.ToListAsync());
         }
 
