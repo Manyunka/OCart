@@ -47,16 +47,41 @@ body {
        text-decoration:none;
     }
 
+.part1 {
+    display: flex;
+    font-size: 30px;
+    font-family: Akrobat;
+    height: 60px;
+    margin-left: 10px;
+}
+
+.part2 {
+    background: pink;
+    height: 400px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.part3 {
+    height: 50px;
+    margin-left: 20px;
+}
+
+.crug {
+    width: 50px;
+    height: 50px;
+    background: pink;
+    border-radius: 50%;
+}
+
 
 .dil {
     display: flex;
-    
-     
+    justify-content:center;
 }
 
 .wrap-content {
      
-    margin-left: 400px;
     margin-top: 100px;
     
       
@@ -90,7 +115,7 @@ body {
 .sqrt_pink_small {
     background-image: url(../img/Auction/pink.png);
     width: 300px;
-    height: 220px;
+    height: 220px;  
     border: 6px solid #ff008f;
     list-style-type: none; /* Убираем маркеры */
     margin-top: 20px;
@@ -103,49 +128,51 @@ body {
     background-color: white;
 }
 
-.part1 {
-    display: flex;
-    font-size: 30px;
-    font-family: Akrobat;
-    
-    height: 60px;
-    margin-left:10px;
-}
-
-.part2{
-    background:pink;
-    height:400px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.part3{
-    height:50px;
-    margin-left:20px;
-}
-
-.crug {
-    width: 50px;
-    height: 50px;
-    background: pink;
-    border-radius: 50%;
-}
 
 .knopochka {
-    margin-left: 310px;
+    margin-top: 300px;
+    margin-left: 70px;
     width: 0;
     height: 0;
     border-top: 50px solid transparent;
     border-left: 100px solid pink;
     border-bottom: 50px solid transparent;
+    background: none;
+    border-right: none
 }
 
 .knopochkaa {
+    border-top: none;
+    border-bottom: none;
+    background: none;
     width: 0;
     height: 0;
     border-top: 50px solid transparent;
     border-right: 100px solid pink;
     border-bottom: 50px solid transparent;
-    margin-top: 370px;
-  
+    margin-top: 300px;
+    margin-right: 100px;
+    border-left:none;
 }
+
+.knopochkaa:hover{
+    border-right-color: tomato;
+    transition: .3s ease;
+    cursor:pointer;
+}
+
+ .knopochka:hover {
+        border-left-color: tomato;
+        transition: .3s ease;
+        cursor:pointer
+    }
+
+.knopochkaa:active {
+    border-right-color: firebrick;
+    transition: .3s ease;
+}
+
+.knopochka:active {
+    border-left-color: firebrick;
+    transition: .3s ease;
+} 
