@@ -19,6 +19,7 @@ namespace OCart.Models
 
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
+        public DateTime Finished { get; set; }
 
         [Required]
         [MaxLength(200)]
@@ -26,12 +27,14 @@ namespace OCart.Models
         [Required]
         public String Description { get; set; }
 
-        public Decimal InitialBet { get; set; }
-        public Decimal FinishedBet { get; set; }
-        public String Story { get; set; }
+        public Decimal InitialCostBet { get; set; }
+
+        public Guid? FinishedBetId { get; set; }
+        public Bet FinishedBet { get; set; }
 
         // Добавить коллекцию тегов
         public ICollection<AuctionComment> AuctionComments { get; set; }
         public ICollection<AuctionPicture> AuctionPictures { get; set; }
+        public ICollection<Bet> Bets { get; set; }
     }
 }
