@@ -41,6 +41,8 @@ namespace OCart.Data
 		public DbSet<AuctionOrderFile> AuctionOrderFiles { get; set; }
 		public DbSet<CommissionOrderFile> CommissionOrderFiles { get; set; }
 
+		public DbSet<Bet> Bets { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -63,6 +65,8 @@ namespace OCart.Data
 			builder.Entity<AuctionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
+			builder.Entity<Bet>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+
 			builder.Entity<Dialog>().HasOne(x => x.User)
 				.WithMany(x => x.Dialogs)
 				.HasForeignKey(x => x.UserId)
@@ -73,14 +77,18 @@ namespace OCart.Data
 				.HasForeignKey(x => x.ArtistId)
 				.IsRequired();
 
+			builder.Entity<Auction>().HasOne(x => x.WinBet)
+				.WithOne(x => x.Auction)
+				.HasForeignKey<Auction>(x => x.WinBetId);
+
 			builder.Entity<Commission>()
 				.Property(p => p.Price)
 				.HasColumnType("decimal(18,4)");
 			builder.Entity<Auction>()
-				.Property(p => p.InitialBet)
+				.Property(p => p.InitialCostBet)
 				.HasColumnType("decimal(18,4)");
-			builder.Entity<Auction>()
-				.Property(p => p.FinishedBet)
+			builder.Entity<Bet>()
+				.Property(p => p.Cost)
 				.HasColumnType("decimal(18,4)");
 
 

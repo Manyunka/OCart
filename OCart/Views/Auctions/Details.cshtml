@@ -35,6 +35,12 @@
             @Html.DisplayFor(model => model.Modified)
         </dd>
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Finished)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Finished)
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
@@ -47,22 +53,16 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InitialBet)
+            @Html.DisplayNameFor(model => model.InitialCostBet)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InitialBet)
+            @Html.DisplayFor(model => model.InitialCostBet)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinishedBet)
+            @Html.DisplayNameFor(model => model.WinBet)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinishedBet)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Story)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Story)
+            @Html.DisplayFor(model => model.WinBet.CreatorId)
         </dd>
     </dl>
 </div>

@@ -25,19 +25,19 @@
                 @Html.DisplayNameFor(model => model.Modified)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Finished)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InitialBet)
+                @Html.DisplayNameFor(model => model.InitialCostBet)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FinishedBet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Story)
+                @Html.DisplayNameFor(model => model.WinBet)
             </th>
             <th></th>
         </tr>
@@ -58,19 +58,19 @@
                 @Html.DisplayFor(modelItem => item.Modified)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Finished)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InitialBet)
+                @Html.DisplayFor(modelItem => item.InitialCostBet)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FinishedBet)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Story)
+                @Html.DisplayFor(modelItem => item.WinBet.CreatorId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

@@ -29,8 +29,8 @@ namespace OCart.Models
 
         public Decimal InitialCostBet { get; set; }
 
-        public Guid? FinishedBetId { get; set; }
-        public Bet FinishedBet { get; set; }
+        public Guid? WinBetId { get; set; }
+        public Bet WinBet { get; set; }
 
         // Добавить коллекцию тегов
         public ICollection<AuctionComment> AuctionComments { get; set; }

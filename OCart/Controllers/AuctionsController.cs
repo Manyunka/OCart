@@ -48,6 +48,7 @@ namespace OCart.Controllers
             var auction = await context.Auctions
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
+                .Include(a => a.WinBet)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null)
             {
@@ -62,6 +63,7 @@ namespace OCart.Controllers
         {
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
             ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
+            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId");
             return View();
         }
 
@@ -70,7 +72,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatorId,CategoryId,Created,Modified,Title,Description,InitialBet,FinishedBet,Story")] Auction auction)
+        public async Task<IActionResult> Create([Bind("Id,CreatorId,CategoryId,Created,Modified,Finished,Title,Description,InitialCostBet,WinBetId")] Auction auction)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +83,7 @@ namespace OCart.Controllers
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
             ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
             return View(auction);
         }
 
@@ -99,6 +102,7 @@ namespace OCart.Controllers
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
             ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
             return View(auction);
         }
 
@@ -107,7 +111,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreatorId,CategoryId,Created,Modified,Title,Description,InitialBet,FinishedBet,Story")] Auction auction)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreatorId,CategoryId,Created,Modified,Finished,Title,Description,InitialCostBet,WinBetId")] Auction auction)
         {
             if (id != auction.Id)
             {
@@ -136,6 +140,7 @@ namespace OCart.Controllers
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
             ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
             return View(auction);
         }
 
@@ -150,6 +155,7 @@ namespace OCart.Controllers
             var auction = await context.Auctions
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
+                .Include(a => a.WinBet)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null)
             {
