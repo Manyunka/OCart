@@ -49,6 +49,8 @@ namespace OCart.Controllers
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
                 .Include(a => a.WinBet)
+                .Include(a => a.AuctionPictures)
+                .Include(a => a.AuctionComments)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null)
             {
@@ -59,12 +61,18 @@ namespace OCart.Controllers
         }
 
         // GET: Auctions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
-            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId");
-            return View();
+            if (!userPermissions.CanCreateAuction())
+            {
+                return NotFound();
+            }
+
+            var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Name");
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
+            //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId");
+            return View(new AuctionCreateModel());
         }
 
         // POST: Auctions/Create
@@ -82,8 +90,8 @@ namespace OCart.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
-            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
             return View(auction);
         }
 

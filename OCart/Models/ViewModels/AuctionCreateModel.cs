@@ -14,7 +14,7 @@ namespace OCart.Models.ViewModels
         [Required]
         public string Description { get; set; }
 
-        public decimal InitialBet { get; set; }
+        public decimal InitialCostBet { get; set; }
         [Required]
         public Guid CategoryId { get; set; }
     }
