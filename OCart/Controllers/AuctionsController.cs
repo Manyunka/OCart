@@ -80,19 +80,40 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatorId,CategoryId,Created,Modified,Finished,Title,Description,InitialCostBet,WinBetId")] Auction auction)
+        public async Task<IActionResult> Create(AuctionCreateModel model)
         {
+            if (!userPermissions.CanCreateAuction())
+            {
+                return NotFound();
+            }
+
+            var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
-                auction.Id = Guid.NewGuid();
+                var now = DateTime.UtcNow;
+
+                var auction = new Auction
+                {
+                    CreatorId = user.Id,
+                    Created = now,
+                    Modified = now,
+                    Finished = now.AddDays(1),
+                    CategoryId = model.CategoryId,
+                    Title = model.Title,
+                    Description = model.Description,
+                    InitialCostBet = model.InitialCostBet
+                };
+
                 context.Add(auction);
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
+
+            var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
+            ViewData["CategoryId"] = new SelectList(categories, "Id", "Name", model.CategoryId);
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
             //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
-            return View(auction);
+            return View(model);
         }
 
         // GET: Auctions/Edit/5
