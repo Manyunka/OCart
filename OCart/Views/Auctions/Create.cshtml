@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="InitialCostBet" class="control-label"></label>
-                <input asp-for="InitialCostBet" class="form-control" />
+                <input type = 'number' step = '.01' asp-for="InitialCostBet" class="form-control" />
                 <span asp-validation-for="InitialCostBet" class="text-danger"></span>
             </div>
             <div class="form-group">

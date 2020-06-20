@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCart.Models
 {
@@ -17,6 +18,7 @@ namespace OCart.Models
         public String CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
+        [Column(TypeName = "Money")]
         public Decimal Cost { get; set; }
     }
 }

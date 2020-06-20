@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCart.Models
 {
@@ -27,6 +28,7 @@ namespace OCart.Models
         [Required]
         public String Description { get; set; }
 
+        [Column(TypeName = "Money")]
         public Decimal InitialCostBet { get; set; }
 
         public Guid? WinBetId { get; set; }

@@ -81,17 +81,6 @@ namespace OCart.Data
 				.WithOne(x => x.Auction)
 				.HasForeignKey<Auction>(x => x.WinBetId);
 
-			builder.Entity<Commission>()
-				.Property(p => p.Price)
-				.HasColumnType("decimal(18,4)");
-			builder.Entity<Auction>()
-				.Property(p => p.InitialCostBet)
-				.HasColumnType("decimal(18,4)");
-			builder.Entity<Bet>()
-				.Property(p => p.Cost)
-				.HasColumnType("decimal(18,4)");
-
-
 			builder.Entity<AuctionOrder>().HasOne(x => x.Auction).WithMany().OnDelete(DeleteBehavior.SetNull);
 			builder.Entity<Commission>()
 				.HasMany(x => x.CommissionOrders)
