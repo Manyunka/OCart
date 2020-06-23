@@ -18,6 +18,40 @@ body{
     margin-left:-100px;
 }
 
+footer {
+    flex-shrink: 0;
+    margin-top: 950px;
+    }
+
+.buttonOne{
+    color:aliceblue;
+    width:150px;
+    height:50px;
+    background-color:deeppink;
+    border: 2px solid white;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.buttonTwo {
+    font-weight: bold;
+    color: aliceblue;
+    width: 150px;
+    height: 50px;
+    background: none;
+    border: 2px solid white;
+    font-size: 22px;
+}
+
+.konetc {
+    padding-bottom:-100px;
+    height: 60px;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    color:aliceblue;
+    justify-content: center;
+}
 
 .container-top header {
     position: absolute;
@@ -59,6 +93,7 @@ a {
     margin-left:100px;
     margin-right:100px;
     margin-bottom:100px;
+    height:800px;
     
     
 }
