@@ -8,16 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using OCart.Data;
 using OCart.Models;
 using OCart.Models.ViewModels;
+using OCart.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace OCart.Controllers
 {
+    [Authorize]
     public class BetsController : Controller
     {
         private readonly ApplicationDbContext context;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserPermissionsService userPermissions;
 
-        public BetsController(ApplicationDbContext context)
+        public BetsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, IUserPermissionsService userPermissions)
         {
             this.context = context;
+            this.userManager = userManager;
+            this.userPermissions = userPermissions;
         }
 
         /*// GET: Bets
@@ -56,7 +64,7 @@ namespace OCart.Controllers
 
             var auction = await context.Auctions
                 .SingleOrDefaultAsync(p => p.Id == auctionId);
-            if (auction == null)
+            if (auction == null || !userPermissions.CanMakeBet())
             {
                 return NotFound();
             }
@@ -77,12 +85,12 @@ namespace OCart.Controllers
 
             var auction = await context.Auctions
                 .SingleOrDefaultAsync(p => p.Id == auctionId);
-            if (auction == null)
+            if (auction == null || !userPermissions.CanMakeBet())
             {
                 return NotFound();
             }
 
-            //var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
                 var now = DateTime.UtcNow;
@@ -90,7 +98,7 @@ namespace OCart.Controllers
                 var bet = new Bet
                 {
                     AuctionId = auction.Id,
-                    //CreatorId = user.Id,
+                    CreatorId = user.Id,
                     Cost = model.Cost
                 };
 
