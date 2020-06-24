@@ -68,17 +68,37 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AuctionId,CreatorId,Cost")] Bet bet)
+        public async Task<IActionResult> Create(Guid? auctionId, BetCreateModel model)
         {
+            if (auctionId == null)
+            {
+                return NotFound();
+            }
+
+            var auction = await context.Auctions
+                .SingleOrDefaultAsync(p => p.Id == auctionId);
+            if (auction == null)
+            {
+                return NotFound();
+            }
+
+            //var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
             {
-                bet.Id = Guid.NewGuid();
-                context.Add(bet);
+                var now = DateTime.UtcNow;
+
+                var bet = new Bet
+                {
+                    AuctionId = auction.Id,
+                    //CreatorId = user.Id,
+                    Cost = model.Cost
+                };
+
                 await context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Auctions", new { id = auction.Id });
             }
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
-            return View(bet);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
+            return View(model);
         }
 
         /*// GET: Bets/Edit/5
