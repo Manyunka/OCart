@@ -7,22 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCart.Data;
 using OCart.Models;
+using OCart.Models.ViewModels;
 
 namespace OCart.Controllers
 {
     public class BetsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
 
         public BetsController(ApplicationDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        // GET: Bets
+        /*// GET: Bets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bets.Include(b => b.Creator);
+            var applicationDbContext = context.Bets.Include(b => b.Creator);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,7 +35,7 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var bet = await _context.Bets
+            var bet = await context.Bets
                 .Include(b => b.Creator)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bet == null)
@@ -43,13 +44,23 @@ namespace OCart.Controllers
             }
 
             return View(bet);
-        }
+        }*/
 
         // GET: Bets/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(Guid? auctionId)
         {
-            ViewData["CreatorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id");
-            return View();
+            if (auctionId == null)
+            {
+                return NotFound();
+            }
+
+            var auction = await context.Auctions
+                .SingleOrDefaultAsync(p => p.Id == auctionId);
+            if (auction == null)
+            {
+                return NotFound();
+            }
+            return View(new BetCreateModel());
         }
 
         // POST: Bets/Create
@@ -62,15 +73,15 @@ namespace OCart.Controllers
             if (ModelState.IsValid)
             {
                 bet.Id = Guid.NewGuid();
-                _context.Add(bet);
-                await _context.SaveChangesAsync();
+                context.Add(bet);
+                await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
+            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
             return View(bet);
         }
 
-        // GET: Bets/Edit/5
+        /*// GET: Bets/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -78,12 +89,12 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var bet = await _context.Bets.FindAsync(id);
+            var bet = await context.Bets.FindAsync(id);
             if (bet == null)
             {
                 return NotFound();
             }
-            ViewData["CreatorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
+            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
             return View(bet);
         }
 
@@ -103,8 +114,8 @@ namespace OCart.Controllers
             {
                 try
                 {
-                    _context.Update(bet);
-                    await _context.SaveChangesAsync();
+                    context.Update(bet);
+                    await context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,7 +130,7 @@ namespace OCart.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CreatorId"] = new SelectList(_context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
+            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", bet.CreatorId);
             return View(bet);
         }
 
@@ -131,7 +142,7 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var bet = await _context.Bets
+            var bet = await context.Bets
                 .Include(b => b.Creator)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (bet == null)
@@ -147,15 +158,15 @@ namespace OCart.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var bet = await _context.Bets.FindAsync(id);
-            _context.Bets.Remove(bet);
-            await _context.SaveChangesAsync();
+            var bet = await context.Bets.FindAsync(id);
+            context.Bets.Remove(bet);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool BetExists(Guid id)
         {
-            return _context.Bets.Any(e => e.Id == id);
-        }
+            return context.Bets.Any(e => e.Id == id);
+        }*/
     }
 }
