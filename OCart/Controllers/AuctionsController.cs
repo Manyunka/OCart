@@ -195,7 +195,7 @@ namespace OCart.Controllers
                 .Include(a => a.Creator)
                 .Include(a => a.WinBet)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (auction == null)
+            if (auction == null || !userPermissions.CanEditAuction(auction))
             {
                 return NotFound();
             }
@@ -206,9 +206,22 @@ namespace OCart.Controllers
         // POST: Auctions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid? id)
         {
-            var auction = await context.Auctions.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var auction = await context.Auctions
+                .Include(a => a.Category)
+                .Include(a => a.Creator)
+                .Include(a => a.WinBet)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (auction == null || !userPermissions.CanEditAuction(auction))
+            {
+                return NotFound();
+            }
             context.Auctions.Remove(auction);
             await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
