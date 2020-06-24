@@ -124,15 +124,25 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var auction = await context.Auctions.FindAsync(id);
-            if (auction == null)
+            var auction = await context.Auctions
+                .SingleOrDefaultAsync(p => p.Id == id);
+            if (auction == null || !userPermissions.CanEditAuction(auction))
             {
                 return NotFound();
             }
+
+            var model = new AuctionEditModel()
+            {
+                CategoryId = auction.CategoryId,
+                Title = auction.Title,
+                Description = auction.Description,
+                InitialCostBet = auction.InitialCostBet
+            };
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
-            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
-            return View(auction);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
+
+            return View(model);
         }
 
         // POST: Auctions/Edit/5
@@ -140,37 +150,36 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreatorId,CategoryId,Created,Modified,Finished,Title,Description,InitialCostBet,WinBetId")] Auction auction)
+        public async Task<IActionResult> Edit(Guid? id, AuctionEditModel model)
         {
-            if (id != auction.Id)
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var auction = await context.Auctions
+                .SingleOrDefaultAsync(p => p.Id == id);
+            if (auction == null || !userPermissions.CanEditAuction(auction))
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    context.Update(auction);
-                    await context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AuctionExists(auction.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var now = DateTime.UtcNow;
+
+                auction.Modified = now;
+                auction.Title = model.Title;
+                auction.Description = model.Description;
+                auction.InitialCostBet = model.InitialCostBet;
+
+                await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
-            ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
-            ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
-            return View(auction);
+            //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
+            //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId", auction.WinBetId);
+            return View(model);
         }
 
         // GET: Auctions/Delete/5

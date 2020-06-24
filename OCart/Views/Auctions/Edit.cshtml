@@ -1,4 +1,4 @@
-﻿@model OCart.Models.Auction
+﻿@model OCart.Models.ViewModels.AuctionEditModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,31 +12,10 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="CreatorId" class="control-label"></label>
-                <select asp-for="CreatorId" class="form-control" asp-items="ViewBag.CreatorId"></select>
-                <span asp-validation-for="CreatorId" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Modified" class="control-label"></label>
-                <input asp-for="Modified" class="form-control" />
-                <span asp-validation-for="Modified" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Finished" class="control-label"></label>
-                <input asp-for="Finished" class="form-control" />
-                <span asp-validation-for="Finished" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -52,11 +31,6 @@
                 <label asp-for="InitialCostBet" class="control-label"></label>
                 <input asp-for="InitialCostBet" class="form-control" />
                 <span asp-validation-for="InitialCostBet" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WinBetId" class="control-label"></label>
-                <select asp-for="WinBetId" class="form-control" asp-items="ViewBag.WinBetId"></select>
-                <span asp-validation-for="WinBetId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
