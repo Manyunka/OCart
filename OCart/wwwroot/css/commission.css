@@ -1,0 +1,243 @@
+﻿@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url(../img/Фон1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+.logo {
+    position: absolute;
+    top: 2rem;
+    left: 2.5rem;
+}
+
+
+.container-top header {
+    position: absolute;
+    top: 2rem;
+    right: 4rem;
+}
+
+    .container-top header ul {
+        display: flex;
+    }
+
+        .container-top header ul li {
+            list-style-type: none;
+            margin-right: 2rem;
+            font-size: 1.3rem;
+        }
+
+    .container-top header .ellipse {
+        border: 2px solid grey;
+        border-radius: 10px;
+        height: 1.3rem;
+        width: 8rem;
+    }
+
+a {
+    text-decoration: none;
+}
+
+.create {
+    color: white;
+    font-weight: bold;
+    background: #df5ef3;
+    width: 350px;
+    height: 40px;
+    margin-left: 240px;
+    text-align: center;
+    border: 2px solid hotpink;
+}
+
+.part1 {
+    display: flex;
+    font-size: 30px;
+    font-family: Akrobat;
+    height: 60px;
+    margin-left: 10px;
+}
+
+.part2 {
+    background: pink;
+    height: 400px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.part3 {
+    height: 50px;
+    margin-left: 20px;
+}
+
+.crug {
+    width: 50px;
+    height: 50px;
+    background: pink;
+    border-radius: 50%;
+}
+
+
+.dil {
+    display: flex;
+    justify-content: center;
+}
+
+.wrap-content {
+    margin-top: 100px;
+}
+
+
+.sqrt_2 {
+    background-image: url(../img/Auction/pink.png);
+    width: 800px;
+    height: 700px;
+    border: 6px solid #ff008f;
+    list-style-type: none; /* Убираем маркеры */
+    margin-top: 20px;
+}
+
+.red_sqrt {
+    margin: -40px 0 0 -40px; /* 1-вверх 2-вправо 3- вниз 4 влево*/
+    width: 800px;
+    height: 700px;
+    background-color: white;
+}
+
+.rectangle {
+    background-image: url(../img/Auction/pink.png);
+    width: 300px;
+    height: 220px;
+    border: 6px solid #ff008f;
+    list-style-type: none; /* Убираем маркеры */
+    margin-top: 20px;
+}
+
+.rectangle2 {
+    margin: -40px 0 0 -40px; /* 1-вверх 2-вправо 3- вниз 4 влево*/
+    width: 300px;
+    height: 220px;
+    background-color: white;
+}
+
+.comms{
+    margin-left:400px;
+}
+/*маленькие квадраты*/
+.wrap-content2 {
+    margin-left: 20px;
+    margin-top: 100px;
+}
+
+.sqrt_pink_small {
+    background-image: url(../img/Auction/pink.png);
+    width: 300px;
+    height: 220px;
+    border: 6px solid #ff008f;
+    list-style-type: none; /* Убираем маркеры */
+    margin-top: 20px;
+}
+
+.sqrt_white_small {
+    margin: -40px 0 0 -40px; /* 1-вверх 2-вправо 3- вниз 4 влево*/
+    width: 300px;
+    height: 220px;
+    background-color: white;
+}
+
+
+.knopochka {
+    margin-top: 300px;
+    margin-left: 70px;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-left: 100px solid pink;
+    border-bottom: 50px solid transparent;
+    background: none;
+    border-right: none
+}
+
+.knopochkaa {
+    border-top: none;
+    border-bottom: none;
+    background: none;
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-right: 100px solid pink;
+    border-bottom: 50px solid transparent;
+    margin-top: 300px;
+    margin-right: 100px;
+    border-left: none;
+}
+
+    .knopochkaa:hover {
+        border-right-color: tomato;
+        transition: .3s ease;
+        cursor: pointer;
+    }
+
+.knopochka:hover {
+    border-left-color: tomato;
+    transition: .3s ease;
+    cursor: pointer
+}
+
+.knopochkaa:active {
+    border-right-color: firebrick;
+    transition: .3s ease;
+}
+
+.knopochka:active {
+    border-left-color: firebrick;
+    transition: .3s ease;
+}
+
+
+/*тип комменты*/
+
+.zagalovok {
+    font-weight:bold;
+    color: deeppink;
+    margin: 70px 50px -70px 430px;
+    border: 2px;
+    height: 60px;
+    padding: 10px;
+}
+
+.media {
+    margin: 50px;
+    margin-left:230px;
+}
+
+    .media mt-3 {
+        margin: 50px;
+        background: red;
+    }
+
+
+.konetc {
+    background: lightgray;
+    height: 60px;
+    padding: 10px;
+    text-align: center;
+}
+
+.form-row input {
+    margin-top: -30px;
+}
+
+.icon {
+    float: right;
+    margin-right: 80px;
+}
+
