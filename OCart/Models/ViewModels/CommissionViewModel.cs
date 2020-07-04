@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+
+namespace OCart.Models.ViewModels
+{
+    public class CommissionViewModel
+    {
+        [Required]
+        [MaxLength(200)]
+        public string Title { get; set; }
+        [Required]
+        public string Description { get; set; }
+
+        public decimal Price { get; set; }
+    }
+}
