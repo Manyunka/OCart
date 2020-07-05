@@ -23,5 +23,8 @@ namespace OCart.Models
         public String Title { get; set; }
         [Required]
         public String Description { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

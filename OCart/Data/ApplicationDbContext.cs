@@ -25,11 +25,11 @@ namespace OCart.Data
 
 		public DbSet<ArtistComment> ArtistComments { get; set; }
 		public DbSet<PostComment> PostComments { get; set; }
-		public DbSet<AuctionComment> AuctionComments { get; set; }
+		public DbSet<Comment> AuctionComments { get; set; }
 		public DbSet<CommissionComment> CommissionComments { get; set; }
 
 		public DbSet<PostPicture> PostPictures { get; set; }
-		public DbSet<AuctionPicture> AuctionPictures { get; set; }
+		public DbSet<Picture> AuctionPictures { get; set; }
 		public DbSet<CommissionPicture> CommissionPictures { get; set; }
 
 		public DbSet<AuctionOrder> AuctionOrders { get; set; }
@@ -54,7 +54,7 @@ namespace OCart.Data
 
 			builder.Entity<ArtistComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<PostComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<AuctionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Comment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<AuctionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
