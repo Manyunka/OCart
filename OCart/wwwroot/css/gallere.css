@@ -82,8 +82,8 @@ a {
 
 .popular {
     display: flex;
-    position:fixed;
-     
+ 
+    background:pink;
     margin-top:-150px;
     margin-left:300px;
 }
