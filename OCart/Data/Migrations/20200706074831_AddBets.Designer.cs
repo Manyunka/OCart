@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OCart.Data;
 
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200706074831_AddBets")]
+    partial class AddBets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -539,8 +541,8 @@ namespace OCart.Data.Migrations
                 {
                     b.HasBaseType("OCart.Models.Activity");
 
-                    b.Property<decimal>("InitialBetCost")
-                        .HasColumnType("Money");
+                    b.Property<decimal>("InitialBet")
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasDiscriminator().HasValue("Auction");
                 });
@@ -550,16 +552,9 @@ namespace OCart.Data.Migrations
                     b.HasBaseType("OCart.Models.Activity");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("Money");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasDiscriminator().HasValue("Commission");
-                });
-
-            modelBuilder.Entity("OCart.Models.Post", b =>
-                {
-                    b.HasBaseType("OCart.Models.Activity");
-
-                    b.HasDiscriminator().HasValue("Post");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -6,12 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class AuctionComment
+    public class Comment
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid AuctionId { get; set; }
-        public Auction Auction { get; set; }
+        public Guid ActivityId { get; set; }
+        public Activity Activity { get; set; }
 
         [Required]
         public String CreatorId { get; set; }
