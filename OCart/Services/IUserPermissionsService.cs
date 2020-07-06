@@ -10,20 +10,20 @@ namespace OCart.Services
     {
         bool CanCreatePost();
         bool CanEditPost(Post post);
-        bool CanEditPostComment(PostComment postComment);
+        //bool CanEditPostComment(PostComment postComment);
 
         bool CanEditArtistComment(ArtistComment artistComment);
 
         bool CanCreateAuction();
         bool CanEditAuction(Auction auction);
-        bool CanEditAuctionComment(AuctionComment auctionComment);
+       //bool CanEditAuctionComment(AuctionComment auctionComment);
 
         bool CanCreateCommission();
         bool CanEditCommission(Commission commission);
-        bool CanEditCommissionComment(CommissionComment commissionComment);
+        //bool CanEditCommissionComment(CommissionComment commissionComment);
 
-        bool CanEditDialog(Dialog dialog);
-        bool CanEditMessage(Message message);
+        //bool CanEditDialog(Dialog dialog);
+        //bool CanEditMessage(Message message);
         bool CanEditAuctionOrderMessage(AuctionOrderMessage message);
         bool CanEditCommissionOrderMessage(CommissionOrderMessage message);
 

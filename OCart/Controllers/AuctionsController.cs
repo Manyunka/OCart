@@ -48,9 +48,9 @@ namespace OCart.Controllers
             var auction = await context.Auctions
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
-                .Include(a => a.WinBet)
-                .Include(a => a.AuctionPictures)
-                .Include(a => a.AuctionComments)
+                //.Include(a => a.WinBet)
+                //.Include(a => a.AuctionPictures)
+                //.Include(a => a.AuctionComments)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null)
             {
@@ -97,11 +97,11 @@ namespace OCart.Controllers
                     CreatorId = user.Id,
                     Created = now,
                     Modified = now,
-                    Finished = now.AddDays(1),
+                    //Finished = now.AddDays(1),
                     CategoryId = model.CategoryId,
                     Title = model.Title,
                     Description = model.Description,
-                    InitialCostBet = model.InitialCostBet
+                    //InitialCostBet = model.InitialCostBet
                 };
 
                 context.Add(auction);
@@ -136,7 +136,7 @@ namespace OCart.Controllers
                 CategoryId = auction.CategoryId,
                 Title = auction.Title,
                 Description = auction.Description,
-                InitialCostBet = auction.InitialCostBet
+                //InitialCostBet = auction.InitialCostBet
             };
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
@@ -171,7 +171,7 @@ namespace OCart.Controllers
                 auction.Modified = now;
                 auction.Title = model.Title;
                 auction.Description = model.Description;
-                auction.InitialCostBet = model.InitialCostBet;
+                //auction.InitialCostBet = model.InitialCostBet;
 
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -193,7 +193,7 @@ namespace OCart.Controllers
             var auction = await context.Auctions
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
-                .Include(a => a.WinBet)
+                //.Include(a => a.WinBet)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null || !userPermissions.CanEditAuction(auction))
             {
@@ -216,7 +216,7 @@ namespace OCart.Controllers
             var auction = await context.Auctions
                 .Include(a => a.Category)
                 .Include(a => a.Creator)
-                .Include(a => a.WinBet)
+                //.Include(a => a.WinBet)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (auction == null || !userPermissions.CanEditAuction(auction))
             {
