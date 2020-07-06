@@ -57,7 +57,6 @@ namespace OCart.Data
 				.HasMany(x => x.CommissionOrders)
 				.WithOne(x => x.Commission)
 				.OnDelete(DeleteBehavior.SetNull);
-
 		}
 	}
 }
