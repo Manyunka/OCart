@@ -25,17 +25,17 @@ namespace OCart.Controllers
             var categories = await context.Categories.ToListAsync();
 
             var posts = await context.Posts
-                //.Include(p => p.PostPictures)
+                .Include(p => p.Pictures)
                 .ToListAsync();
-            /*var pictures = new Dictionary<Guid, string>();
+            var pictures = new Dictionary<Guid, string>();
             foreach (var c in categories)
             {
                 var post = posts.LastOrDefault(p => p.CategoryId == c.Id);
                 if(post != null)
-                    pictures[c.Id] = post.PostPictures.FirstOrDefault().Path;
+                    pictures[c.Id] = post.Pictures.FirstOrDefault().Path;
             }
 
-            ViewBag.Pictures = pictures;*/
+            ViewBag.Pictures = pictures;
             return View(categories);
         }
 

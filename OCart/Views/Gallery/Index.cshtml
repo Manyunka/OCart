@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="/css/gallere.css" />
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
 </head>
@@ -16,12 +16,12 @@
     <div class="container-top">
         <header>
             <ul>
-                <li class="active"><a href="#home">Главная</a></li>
+                <li><a href="#home">Главная</a></li>
                 <li><a href="#about-us">О нас</a></li>
                 <li><a href="#contacts">Контакты</a></li>
-                <li><a a asp-area="" asp-controller="Gallery" asp-action="Index">Галерея</a></li>
+                <li class="active"><a a asp-area="" asp-controller="Gallery" asp-action="Index">Галерея</a></li>
                 <li><a href="#">Заказы</a></li>
-                <li><a href="#">Аукционы </a></li>
+                <li><a asp-area="" asp-controller="Auctions" asp-action="Index">Аукционы </a></li>
                 <span class="ellipse"></span>
             </ul>
         </header>
@@ -37,42 +37,23 @@
     <!--жанры и популярно-->
     <div class="dil" id="text">
         <div class="card-deck">
+            @foreach (var item in Model)
+            {
             <div class="card">
-                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                @if (ViewBag.Pictures.ContainsKey(item.Id))
+                {
+                <img src=@ViewBag.Pictures[item.Id] class="card-img-top" alt="...">
+                }
+                
                 <div class="card-body">
-                    <h5 class="card-title">Название карточки</h5>
+                    <h5 class="card-title"><a asp-action="Details" asp-route-categoryId="@item.Id">@item.Name</a></h5>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">Last updated 3 mins ago</small>
                 </div>
             </div>
-            <div class="card">
-                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Название карточки</h5>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Название карточки</h5>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
-            <div class="card">
-                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Название карточки</h5>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
-                </div>
-            </div>
+            }
+
         </div>
 
         <!--2 КОЛОНКИ-->

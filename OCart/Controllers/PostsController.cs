@@ -45,8 +45,8 @@ namespace OCart.Controllers
         {
             var applicationDbContext = context.Posts
                 .Include(p => p.Category)
-                .Include(p => p.Creator);
-                //.Include(p => p.PostPictures);
+                .Include(p => p.Creator)
+                .Include(p => p.Pictures);
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -63,8 +63,8 @@ namespace OCart.Controllers
             var post = await context.Posts
                 .Include(p => p.Category)
                 .Include(p => p.Creator)
-                //.Include(p => p.PostPictures)
-                //.Include(p => p.PostComments)
+                .Include(p => p.Pictures)
+                .Include(p => p.Comments)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (post == null)
             {
@@ -100,7 +100,7 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            /*foreach (var p in model.Pictures)
+            foreach (var p in model.Pictures)
             {
                 if (p != null)
                 {
@@ -111,7 +111,7 @@ namespace OCart.Controllers
                         ModelState.AddModelError(nameof(p), "This file type is prohibited");
                     }
                 }
-            }*/
+            }
 
             var user = await userManager.GetUserAsync(HttpContext.User);
             if (ModelState.IsValid)
@@ -128,7 +128,7 @@ namespace OCart.Controllers
                     Description = model.Description
                 };
 
-                /*Directory.CreateDirectory(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
+                Directory.CreateDirectory(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
                 foreach (var p in model.Pictures)
                 {
                     if (p != null)
@@ -136,10 +136,10 @@ namespace OCart.Controllers
                         var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
                         var fileExt = Path.GetExtension(fileName);
 
-                        var postPicture = new PostPicture
+                        var postPicture = new Picture
                         {
                             Created = DateTime.UtcNow,
-                            PostId = post.Id,
+                            ActivityId = post.Id,
                             Name = fileName
                         };
 
@@ -151,7 +151,7 @@ namespace OCart.Controllers
 
                         context.Add(postPicture);
                     }
-                }*/
+                }
 
                 context.Add(post);
                 await context.SaveChangesAsync();
@@ -173,15 +173,15 @@ namespace OCart.Controllers
             }
 
             var post = await context.Posts
-                //.Include(p => p.PostPictures)
+                .Include(p => p.Pictures)
                 .SingleOrDefaultAsync(p => p.Id == id);
             if (post == null || !userPermissions.CanEditPost(post))
             {
                 return NotFound();
             }
 
-            /*var pictures = new List<IFormFile>();
-            foreach (var p in post.PostPictures)
+            var pictures = new List<IFormFile>();
+            foreach (var p in post.Pictures)
             {
                 var attachmentPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"), p.Name);;
                 using var stream = new FileStream(attachmentPath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read);
@@ -192,14 +192,14 @@ namespace OCart.Controllers
                 };
 
                 pictures.Add(file);
-            }*/
+            }
 
             var model = new PostViewModel()
             {
                 CategoryId = post.CategoryId,
                 Title = post.Title,
-                Description = post.Description
-                //Pictures = pictures
+                Description = post.Description,
+                Pictures = pictures
             };
 
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", post.CategoryId);
@@ -220,7 +220,7 @@ namespace OCart.Controllers
             }
 
             var post = await context.Posts
-                //.Include(p => p.PostPictures)
+                .Include(p => p.Pictures)
                 .SingleOrDefaultAsync(p => p.Id == id);
 
             if (post == null || !userPermissions.CanEditPost(post))
@@ -228,7 +228,7 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            /*foreach (var p in model.Pictures)
+            foreach (var p in model.Pictures)
             {
                 if (p != null)
                 {
@@ -239,14 +239,13 @@ namespace OCart.Controllers
                         ModelState.AddModelError(nameof(p), "This file type is prohibited");
                     }
                 }
-            }*/
+            }
 
             if (ModelState.IsValid)
             {
-                /*var filePaths = Directory.GetFiles(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
+                var filePaths = Directory.GetFiles(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
                 foreach (string filePath in filePaths)
                     System.IO.File.Delete(filePath);
-                */
 
                 var now = DateTime.UtcNow;
 
@@ -254,17 +253,17 @@ namespace OCart.Controllers
                 post.Title = model.Title;
                 post.Description = model.Description;
 
-                /*foreach (var p in model.Pictures)
+                foreach (var p in model.Pictures)
                 {
                     if (p != null)
                     {
                         var fileName = Path.GetFileName(ContentDispositionHeaderValue.Parse(p.ContentDisposition).FileName.Value.Trim('"'));
                         var fileExt = Path.GetExtension(fileName);
 
-                        var postPicture = new PostPicture
+                        var postPicture = new Picture
                         {
                             Created = DateTime.UtcNow,
-                            PostId = post.Id,
+                            ActivityId = post.Id,
                             Name = fileName
                         };
 
@@ -274,11 +273,11 @@ namespace OCart.Controllers
                         using var fileStream = new FileStream(attachmentPath, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.Read);
                         await p.CopyToAsync(fileStream);
 
-                        var pictures = context.PostPictures.Where(p => p.PostId == post.Id);
-                        context.PostPictures.RemoveRange(pictures);
+                        var pictures = context.Pictures.Where(p => p.ActivityId == post.Id);
+                        context.Pictures.RemoveRange(pictures);
                         context.Add(postPicture);
                     }
-                }*/
+                }
 
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -325,8 +324,8 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            /*var folderPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"));
-            Directory.Delete(folderPath, true);*/
+            var folderPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"));
+            Directory.Delete(folderPath, true);
 
             context.Posts.Remove(post);
             await context.SaveChangesAsync();

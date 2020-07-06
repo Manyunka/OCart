@@ -3,79 +3,161 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" type="text/css" href="/css/gallery.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-          asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-          asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
 </head>
 <body>
-    <h1>Index</h1>
 
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Creator)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Created)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Modified)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+    <img src="../img/logo_white.png" alt="logo" class="logo" />
+    <div class="container-top">
+        <header>
+            <ul>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Главная</a></li>
+                <li><a href="#about-us">О нас</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+                <li class="active"><a asp-area="" asp-controller="Gallery" asp-action="Index">Галерея</a></li>
+                <li><a href="#">Заказы</a></li>
+                <li><a asp-area="" asp-controller="Auctions" asp-action="Index">Аукционы </a></li>
+                <span class="ellipse"></span>
+            </ul>
+        </header>
+
+    </div>
+
+    <div class="popular">
+        <button onclick="chpok('text')">Жанры</button>
+        <button onclick="chpok('text')">Популярное</button>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    </div>
+
+
+    <!--жанры и популярно-->
+    <div class="dil" id="text">
+        <div class="card-deck">
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Creator.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Created)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Modified)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <div class="card">
+                    <img src=@item.Pictures.LastOrDefault().Path class="card-img-top" alt="...">
+
+                    <div class="card-body">
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
             }
-        </tbody>
-    </table>
+
+        </div>
+
+        <!--2 КОЛОНКИ-->
+
+
+        <div class="card-deck">
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+        <!--3 КОЛОНКИ-->
+        <div class="card-deck">
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="konetc">
+            <h3> СТАНЬ ЧАСТЬЮ АРТ-СООБЩЕСТВА</h3>&nbsp;&nbsp;&nbsp;
+            <button class="buttonOne">Регистрация</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="buttonTwo">Авторизация</button>
+
+        </div>
+    </footer>
+    <script src="../js/site.js">
+
+    </script>
 </body>
+
 </html>
+
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
