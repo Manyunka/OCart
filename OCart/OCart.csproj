@@ -40,6 +40,8 @@
     <Compile Remove="Data\Migrations\20200606131255_AddCommissionOrders.Designer.cs" />
     <Compile Remove="Data\Migrations\20200606143809_AuctionOrderMessages.cs" />
     <Compile Remove="Data\Migrations\20200606143809_AuctionOrderMessages.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200706075419_FixMoneyFields.cs" />
+    <Compile Remove="Data\Migrations\20200706075419_FixMoneyFields.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

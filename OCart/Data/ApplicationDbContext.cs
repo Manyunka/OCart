@@ -16,6 +16,9 @@ namespace OCart.Data
 
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Activity> Activities { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<Commission> Commissions { get; set; }
+		public DbSet<Auction> Auctions { get; set; }
 
 		public DbSet<Comment> Comments { get; set; }
 
@@ -47,14 +50,6 @@ namespace OCart.Data
 			builder.Entity<CommissionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Bet>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-
-			builder.Entity<Commission>()
-				.Property(p => p.Price)
-				.HasColumnType("decimal(18,4)");
-			builder.Entity<Auction>()
-				.Property(p => p.InitialBet)
-				.HasColumnType("decimal(18,4)");
-
 
 			builder.Entity<AuctionOrder>().HasOne(x => x.Auction).WithMany().OnDelete(DeleteBehavior.SetNull);
 			builder.Entity<Commission>()
