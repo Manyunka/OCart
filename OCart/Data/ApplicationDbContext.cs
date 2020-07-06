@@ -30,6 +30,8 @@ namespace OCart.Data
 		public DbSet<AuctionOrderFile> AuctionOrderFiles { get; set; }
 		public DbSet<CommissionOrderFile> CommissionOrderFiles { get; set; }
 
+		public DbSet<Bet> Bets { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
@@ -43,6 +45,8 @@ namespace OCart.Data
 
 			builder.Entity<AuctionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+
+			builder.Entity<Bet>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Commission>()
 				.Property(p => p.Price)

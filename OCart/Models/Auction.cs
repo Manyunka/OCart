@@ -10,6 +10,7 @@ namespace OCart.Models
     {
         public Decimal InitialBet { get; set; }
 
+        public ICollection<Bet> Bets { get; set; }
         //public ICollection<AuctionComment> AuctionComments { get; set; }
         //public ICollection<AuctionPicture> AuctionPictures { get; set; }
     }
