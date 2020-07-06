@@ -72,7 +72,7 @@ namespace OCart.Controllers
             ViewData["CategoryId"] = new SelectList(categories, "Id", "Name");
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
             //ViewData["WinBetId"] = new SelectList(context.Bets, "Id", "CreatorId");
-            return View(new AuctionCreateModel());
+            return View(new AuctionViewModel());
         }
 
         // POST: Auctions/Create
@@ -80,7 +80,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(AuctionCreateModel model)
+        public async Task<IActionResult> Create(AuctionViewModel model)
         {
             if (!userPermissions.CanCreateAuction())
             {
@@ -101,7 +101,7 @@ namespace OCart.Controllers
                     CategoryId = model.CategoryId,
                     Title = model.Title,
                     Description = model.Description,
-                    //InitialCostBet = model.InitialCostBet
+                    InitialBetCost = model.InitialBetCost
                 };
 
                 context.Add(auction);
@@ -131,12 +131,12 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var model = new AuctionEditModel()
+            var model = new AuctionViewModel()
             {
                 CategoryId = auction.CategoryId,
                 Title = auction.Title,
                 Description = auction.Description,
-                //InitialCostBet = auction.InitialCostBet
+                InitialBetCost = auction.InitialBetCost
             };
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name", auction.CategoryId);
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id", auction.CreatorId);
@@ -150,7 +150,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, AuctionEditModel model)
+        public async Task<IActionResult> Edit(Guid? id, AuctionViewModel model)
         {
             if (id == null)
             {
@@ -171,7 +171,7 @@ namespace OCart.Controllers
                 auction.Modified = now;
                 auction.Title = model.Title;
                 auction.Description = model.Description;
-                //auction.InitialCostBet = model.InitialCostBet;
+                auction.InitialBetCost = model.InitialBetCost;
 
                 await context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

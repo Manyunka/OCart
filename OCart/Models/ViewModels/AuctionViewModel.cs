@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCart.Models.ViewModels
 {
-    public class AuctionCreateModel
+    public class AuctionViewModel
     {
         [Required]
         [MaxLength(200)]
@@ -15,7 +15,7 @@ namespace OCart.Models.ViewModels
         [Required]
         public string Description { get; set; }
 
-        public decimal InitialCostBet { get; set; }
+        public decimal InitialBetCost { get; set; }
         [Required]
         public Guid CategoryId { get; set; }
     }
