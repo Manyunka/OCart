@@ -1,4 +1,4 @@
-﻿@model OCart.Models.ViewModels.PostEditModel
+﻿@model OCart.Models.ViewModels.PostViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -32,9 +32,14 @@
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Text" class="control-label"></label>
-                    <input asp-for="Text" class="form-control" />
-                    <span asp-validation-for="Text" class="text-danger"></span>
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />

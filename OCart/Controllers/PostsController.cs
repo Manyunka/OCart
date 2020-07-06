@@ -85,7 +85,7 @@ namespace OCart.Controllers
             var categories = await context.Categories.OrderBy(x => x.Name).ToListAsync();
             ViewData["CategoryId"] = new SelectList(context.Categories, "Id", "Name");
             //ViewData["CreatorId"] = new SelectList(context.Set<ApplicationUser>(), "Id", "Id");
-            return View(new PostCreateModel());
+            return View(new PostViewModel());
         }
 
         // POST: Gallery/Create
@@ -93,7 +93,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PostCreateModel model)
+        public async Task<IActionResult> Create(PostViewModel model)
         {
             if (!userPermissions.CanCreatePost())
             {
@@ -124,7 +124,8 @@ namespace OCart.Controllers
                     Created = now,
                     Modified = now,
                     CategoryId = model.CategoryId,
-                    //Text = model.Text
+                    Title = model.Title,
+                    Description = model.Description
                 };
 
                 /*Directory.CreateDirectory(Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N")));
@@ -193,10 +194,11 @@ namespace OCart.Controllers
                 pictures.Add(file);
             }*/
 
-            var model = new PostEditModel()
+            var model = new PostViewModel()
             {
                 CategoryId = post.CategoryId,
-                //Text = post.Text,
+                Title = post.Title,
+                Description = post.Description
                 //Pictures = pictures
             };
 
@@ -210,7 +212,7 @@ namespace OCart.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid? id, PostEditModel model)
+        public async Task<IActionResult> Edit(Guid? id, PostViewModel model)
         {
             if (id == null)
             {
@@ -249,9 +251,10 @@ namespace OCart.Controllers
                 var now = DateTime.UtcNow;
 
                 post.Modified = now;
-                /*post.Text = model.Text;
+                post.Title = model.Title;
+                post.Description = model.Description;
 
-                foreach (var p in model.Pictures)
+                /*foreach (var p in model.Pictures)
                 {
                     if (p != null)
                     {
@@ -322,8 +325,8 @@ namespace OCart.Controllers
                 return NotFound();
             }
 
-            var folderPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"));
-            Directory.Delete(folderPath, true);
+            /*var folderPath = Path.Combine(hostingEnvironment.WebRootPath, "posts", post.Id.ToString("N"));
+            Directory.Delete(folderPath, true);*/
 
             context.Posts.Remove(post);
             await context.SaveChangesAsync();
