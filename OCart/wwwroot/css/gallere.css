@@ -1,0 +1,99 @@
+﻿@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-image:url(../img/Glavnaya.png)
+}
+
+.logo {
+    position: absolute;
+    top: 2rem;
+    left: 2.5rem;
+    margin-top:-60px;
+    margin-left:-100px;
+}
+
+footer {
+    flex-shrink: 0;
+    margin-top: 950px;
+    }
+
+.buttonOne{
+    color:aliceblue;
+    width:150px;
+    height:50px;
+    background-color:deeppink;
+    border: 2px solid white;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.buttonTwo {
+    font-weight: bold;
+    color: aliceblue;
+    width: 150px;
+    height: 50px;
+    background: none;
+    border: 2px solid white;
+    font-size: 22px;
+}
+
+.konetc {
+    padding-bottom:-100px;
+    height: 60px;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    color:aliceblue;
+    justify-content: center;
+}
+
+.container-top header {
+    position: absolute;
+    top: 2rem;
+    right: 4rem;
+}
+
+    .container-top header ul {
+        display: flex;
+    }
+
+        .container-top header ul li {
+            list-style-type: none;
+            margin-right: 2rem;
+            font-size: 1.3rem;
+        }
+
+    .container-top header .ellipse {
+        border: 2px solid grey;
+        border-radius: 10px;
+        height: 1.3rem;
+        width: 8rem;
+    }
+
+a {
+    text-decoration: none;
+}
+
+.popular {
+    display: flex;
+ 
+    background:pink;
+    margin-top:-150px;
+    margin-left:300px;
+}
+
+.dil{
+    margin-top:200px;
+    margin-left:100px;
+    margin-right:100px;
+    margin-bottom:100px;
+    height:800px;
+    
+    
+}
