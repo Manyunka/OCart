@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class Message
+    public abstract class Activity
     {
         public Guid Id { get; set; } = Guid.NewGuid();
-        public Guid DialogId { get; set; }
-        public Dialog Dialog { get; set; }
 
         [Required]
         public String CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
+        public Guid CategoryId { get; set; }
+        public Category Category { get; set; }
+
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
 
         [Required]
-        public String Text { get; set; }
+        [MaxLength(200)]
+        public String Title { get; set; }
+        [Required]
+        public String Description { get; set; }
 
-        public ICollection<MessageFile> MessageFiles { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

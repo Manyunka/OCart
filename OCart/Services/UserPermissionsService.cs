@@ -43,7 +43,7 @@ namespace OCart.Services
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == post.CreatorId;
 
         }
-        public bool CanEditPostComment(PostComment postComment)
+        /*public bool CanEditPostComment(PostComment postComment)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -51,7 +51,7 @@ namespace OCart.Services
             }
 
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == postComment.CreatorId;
-        }
+        }*/
 
         public bool CanEditAuction(Auction auction)
         {
@@ -62,7 +62,7 @@ namespace OCart.Services
 
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == auction.CreatorId;
         }
-        public bool CanEditAuctionComment(AuctionComment auctionComment)
+        /*public bool CanEditAuctionComment(AuctionComment auctionComment)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -70,7 +70,7 @@ namespace OCart.Services
             }
 
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == auctionComment.CreatorId;
-        }
+        }*/
 
         public bool CanEditCommission(Commission commission)
         {
@@ -81,7 +81,7 @@ namespace OCart.Services
 
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == commission.CreatorId;
         }
-        public bool CanEditCommissionComment(CommissionComment commissionComment)
+        /*public bool CanEditCommissionComment(CommissionComment commissionComment)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
@@ -108,7 +108,7 @@ namespace OCart.Services
             }
 
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == message.CreatorId;
-        }
+        }*/
         public bool CanEditAuctionOrderMessage(AuctionOrderMessage message)
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
@@ -147,7 +147,7 @@ namespace OCart.Services
             return userManager.GetUserId(httpContextAccessor.HttpContext.User) == order.Commission.CreatorId;
         }
 
-        public bool CanMakeBet(Auction auction)
+        public bool CanMakeBet()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
             {
@@ -156,9 +156,39 @@ namespace OCart.Services
 
             return true;
         }
-        public bool CanBuy(Commission commission)
+        public bool CanBuy()
         {
             if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Customers))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCreatePost()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCreateAuction()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanCreateCommission()
+        {
+            if (!HttpContext.User.Identity.IsAuthenticated || !HttpContext.User.IsInRole(ApplicationRoles.Artists))
             {
                 return false;
             }

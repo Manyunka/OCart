@@ -6,12 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class MessageFile
+    public class Picture
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid MessageId { get; set; }
-        public Message Message { get; set; }
+        public Guid ActivityId { get; set; }
+        public Activity Activity { get; set; }
 
         public DateTime Created { get; set; }
         [Required]
