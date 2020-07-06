@@ -4,24 +4,177 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/gallere.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-<p>
-    <a asp-controller="Posts" asp-action="Index">Популярное</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                Picture
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+</head>
+<body>
 
-    </tbody>
-</table>
+    <img src="../img/logo_white.png" alt="logo" class="logo" />
+    <div class="container-top">
+        <header>
+            <ul>
+                <li class="active"><a href="#home">Главная</a></li>
+                <li><a href="#about-us">О нас</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+                <li><a a asp-area="" asp-controller="Gallery" asp-action="Index">Галерея</a></li>
+                <li><a href="#">Заказы</a></li>
+                <li><a href="#">Аукционы </a></li>
+                <span class="ellipse"></span>
+            </ul>
+        </header>
+
+    </div>
+
+    <div class="popular">
+        <button onclick="chpok('text')">Жанры</button>
+        <button onclick="chpok('text')">Популярное</button>
+    </div>
+
+
+    <!--жанры и популярно-->
+    <div class="dil" id="text">
+        <div class="card-deck">
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+        <!--2 КОЛОНКИ-->
+
+
+        <div class="card-deck">
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+
+        <!--3 КОЛОНКИ-->
+        <div class="card-deck">
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+            <div class="card">
+                <img src="../img/Auction/pink2.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Название карточки</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="konetc">
+            <h3> СТАНЬ ЧАСТЬЮ АРТ-СООБЩЕСТВА</h3>&nbsp;&nbsp;&nbsp;
+            <button class="buttonOne">Регистрация</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="buttonTwo">Авторизация</button>
+
+        </div>
+    </footer>
+    <script src="../js/site.js">
+
+    </script>
+</body>
+
+</html>
+
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

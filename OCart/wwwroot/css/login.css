@@ -15,7 +15,7 @@ body {
 
 .window-registr {
     display: flex;
-    width: 823px !important;
+    width: 825px !important;
     height: 715px !important;
     background: url(../img/Register/avtorizats.png) !important;
     position: fixed;

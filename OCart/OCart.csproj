@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Auction\**" />
+    <Content Remove="Views\Auction\**" />
+    <EmbeddedResource Remove="Views\Auction\**" />
+    <None Remove="Views\Auction\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Data\Migrations\20200603203621_AddUsers.cs" />
     <Compile Remove="Data\Migrations\20200603203621_AddUsers.Designer.cs" />
     <Compile Remove="Data\Migrations\20200605123730_AddDialogs.cs" />
@@ -51,10 +58,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Views\Auction\Аuction.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
@@ -65,7 +68,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Auction\" />
     <Folder Include="wwwroot\img\Auction\" />
     <Folder Include="wwwroot\posts\" />
   </ItemGroup>
