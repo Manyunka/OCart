@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Index";
-    int i = 0;
 }
 
 <h1>Index</h1>
@@ -23,21 +22,6 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @if (ViewBag.Pictures.ContainsKey(item.Id))
-                {
-                    @ViewBag.Pictures[item.Id]
-                }
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-categoryId="@item.Id">Details</a> |
-            </td>
-        </tr>
-}
+
     </tbody>
 </table>
