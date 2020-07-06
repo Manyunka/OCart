@@ -49,28 +49,10 @@
                 @Html.DisplayFor(model => model.Modified)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Text)
+                @Html.DisplayNameFor(model => model.Description)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Text)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PostPictures)
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var c in Model.PostPictures)
-                {
-                    <span>@c.Name</span>
-                }
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.PostComments)
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var c in Model.PostComments)
-                {
-                    <span>@c.Text</span>
-                }
+                @Html.DisplayFor(model => model.Description)
             </dd>
         </dl>
     </div>
@@ -84,16 +66,6 @@
     <p>
         <a asp-action="Create" asp-controller="PostComments" asp-route-postId="@Model.Id" class="btn btn-default">Create New</a>
     </p>
-
-    @foreach (var item in Model.PostComments.OrderByDescending(x => x.Created))
-    {
-<div>
-    @item.Creator.UserName | @item.Created
-    <text>@item.Text</text>
-    <text>| <a asp-action="Edit" asp-controller="PostComments" asp-route-id="@item.Id">Edit</a></text>
-    <text>| <a asp-action="Delete" asp-controller="PostComments" asp-route-id="@item.Id">Delete</a></text>
-</div>
-    }
 
 </body>
 </html>
