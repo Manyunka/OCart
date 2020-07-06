@@ -15,22 +15,11 @@ namespace OCart.Data
 		}
 
 		public DbSet<Category> Categories { get; set; }
-		public DbSet<Post> Posts { get; set; }
-		public DbSet<Commission> Commissions { get; set; }
-		public DbSet<Auction> Auctions { get; set; }
+		public DbSet<Activity> Activities { get; set; }
 
-		public DbSet<Dialog> Dialogs { get; set; }
-		public DbSet<Message> Messages { get; set; }
-		public DbSet<MessageFile> MessageFiles { get; set; }
+		public DbSet<Comment> Comments { get; set; }
 
-		public DbSet<ArtistComment> ArtistComments { get; set; }
-		public DbSet<PostComment> PostComments { get; set; }
-		public DbSet<Comment> AuctionComments { get; set; }
-		public DbSet<CommissionComment> CommissionComments { get; set; }
-
-		public DbSet<PostPicture> PostPictures { get; set; }
-		public DbSet<Picture> AuctionPictures { get; set; }
-		public DbSet<CommissionPicture> CommissionPictures { get; set; }
+		public DbSet<Picture> Pictures { get; set; }
 
 		public DbSet<AuctionOrder> AuctionOrders { get; set; }
 		public DbSet<CommissionOrder> CommissionOrders { get; set; }
@@ -45,17 +34,9 @@ namespace OCart.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<Post>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<Commission>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<Auction>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Activity>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
-			builder.Entity<Dialog>().HasOne(x => x.Interlocutor).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<Message>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-
-			builder.Entity<ArtistComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<PostComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<Comment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<CommissionComment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<AuctionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
@@ -63,24 +44,11 @@ namespace OCart.Data
 			builder.Entity<AuctionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 			builder.Entity<CommissionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
-			builder.Entity<Dialog>().HasOne(x => x.User)
-				.WithMany(x => x.Dialogs)
-				.HasForeignKey(x => x.UserId)
-				.IsRequired();
-
-			builder.Entity<ArtistComment>().HasOne(x => x.Artist)
-				.WithMany(x => x.ArtistComments)
-				.HasForeignKey(x => x.ArtistId)
-				.IsRequired();
-
 			builder.Entity<Commission>()
 				.Property(p => p.Price)
 				.HasColumnType("decimal(18,4)");
 			builder.Entity<Auction>()
 				.Property(p => p.InitialBet)
-				.HasColumnType("decimal(18,4)");
-			builder.Entity<Auction>()
-				.Property(p => p.FinishedBet)
 				.HasColumnType("decimal(18,4)");
 
 
