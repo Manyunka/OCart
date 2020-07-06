@@ -42,6 +42,12 @@
     <Compile Remove="Data\Migrations\20200606143809_AuctionOrderMessages.Designer.cs" />
     <Compile Remove="Data\Migrations\20200706075419_FixMoneyFields.cs" />
     <Compile Remove="Data\Migrations\20200706075419_FixMoneyFields.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200706080050_FixActivities.cs" />
+    <Compile Remove="Data\Migrations\20200706080050_FixActivities.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200706082348_FixMoneyFields.cs" />
+    <Compile Remove="Data\Migrations\20200706082348_FixMoneyFields.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200706082551_FixMoneyFields.cs" />
+    <Compile Remove="Data\Migrations\20200706082551_FixMoneyFields.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

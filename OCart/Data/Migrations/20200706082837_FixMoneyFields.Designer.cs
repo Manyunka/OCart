@@ -10,8 +10,8 @@ using OCart.Data;
 namespace OCart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200706080050_FixActivities")]
-    partial class FixActivities
+    [Migration("20200706082837_FixMoneyFields")]
+    partial class FixMoneyFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -541,8 +541,8 @@ namespace OCart.Data.Migrations
                 {
                     b.HasBaseType("OCart.Models.Activity");
 
-                    b.Property<decimal>("InitialBet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("InitialBetCost")
+                        .HasColumnType("Money");
 
                     b.HasDiscriminator().HasValue("Auction");
                 });

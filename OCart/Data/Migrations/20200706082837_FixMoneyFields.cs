@@ -2,10 +2,14 @@
 
 namespace OCart.Data.Migrations
 {
-    public partial class FixActivities : Migration
+    public partial class FixMoneyFields : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "InitialBet",
+                table: "Activities");
+
             migrationBuilder.AlterColumn<decimal>(
                 name: "Price",
                 table: "Activities",
@@ -15,17 +19,19 @@ namespace OCart.Data.Migrations
                 oldType: "decimal(18,4)",
                 oldNullable: true);
 
-            migrationBuilder.AlterColumn<decimal>(
-                name: "InitialBet",
+            migrationBuilder.AddColumn<decimal>(
+                name: "InitialBetCost",
                 table: "Activities",
-                nullable: true,
-                oldClrType: typeof(decimal),
-                oldType: "decimal(18,4)",
-                oldNullable: true);
+                type: "Money",
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "InitialBetCost",
+                table: "Activities");
+
             migrationBuilder.AlterColumn<decimal>(
                 name: "Price",
                 table: "Activities",
@@ -35,13 +41,11 @@ namespace OCart.Data.Migrations
                 oldType: "Money",
                 oldNullable: true);
 
-            migrationBuilder.AlterColumn<decimal>(
+            migrationBuilder.AddColumn<decimal>(
                 name: "InitialBet",
                 table: "Activities",
                 type: "decimal(18,4)",
-                nullable: true,
-                oldClrType: typeof(decimal),
-                oldNullable: true);
+                nullable: true);
         }
     }
 }

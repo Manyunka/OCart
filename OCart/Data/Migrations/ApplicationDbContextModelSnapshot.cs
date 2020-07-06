@@ -539,8 +539,8 @@ namespace OCart.Data.Migrations
                 {
                     b.HasBaseType("OCart.Models.Activity");
 
-                    b.Property<decimal>("InitialBet")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<decimal>("InitialBetCost")
+                        .HasColumnType("Money");
 
                     b.HasDiscriminator().HasValue("Auction");
                 });
