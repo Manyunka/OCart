@@ -6,17 +6,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class AuctionOrderFile
+    public class Order
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid AuctionOrderMessageId { get; set; }
-        public AuctionOrderMessage AuctionOrderMessage { get; set; }
+        [Required]
+        public String CustomerId { get; set; }
+        public ApplicationUser Customer { get; set; }
 
         public DateTime Created { get; set; }
-        [Required]
-        public String Name { get; set; }
-        [Required]
-        public String Path { get; set; }
+
+        public StatusType Status { get; set; }
     }
 }

@@ -24,14 +24,13 @@ namespace OCart.Data
 
 		public DbSet<Picture> Pictures { get; set; }
 
+		public DbSet<Order> Orders { get; set; }
 		public DbSet<AuctionOrder> AuctionOrders { get; set; }
 		public DbSet<CommissionOrder> CommissionOrders { get; set; }
 
-		public DbSet<AuctionOrderMessage> AuctionOrdersMessages { get; set; }
-		public DbSet<CommissionOrderMessage> CommissionOrdersMessages { get; set; }
+		public DbSet<OrderMessage> OrdersMessages { get; set; }
 
-		public DbSet<AuctionOrderFile> AuctionOrderFiles { get; set; }
-		public DbSet<CommissionOrderFile> CommissionOrderFiles { get; set; }
+		public DbSet<OrderFile> OrderFiles { get; set; }
 
 		public DbSet<Bet> Bets { get; set; }
 
@@ -43,11 +42,9 @@ namespace OCart.Data
 
 			builder.Entity<Comment>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
-			builder.Entity<AuctionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<CommissionOrder>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Order>().HasOne(x => x.Customer).WithMany().OnDelete(DeleteBehavior.Restrict);
 
-			builder.Entity<AuctionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
-			builder.Entity<CommissionOrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<OrderMessage>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
 			builder.Entity<Bet>().HasOne(x => x.Creator).WithMany().OnDelete(DeleteBehavior.Restrict);
 
