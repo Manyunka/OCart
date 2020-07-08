@@ -6,12 +6,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OCart.Models
 {
-    public class CommissionOrderFile
+    public class OrderFile
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public Guid CommissionOrderMessageId { get; set; }
-        public CommissionOrderMessage CommissionOrderMessage { get; set; }
+        public Guid OrderMessageId { get; set; }
+        public OrderMessage OrderMessage { get; set; }
 
         public DateTime Created { get; set; }
         [Required]
